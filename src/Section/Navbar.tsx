@@ -2,23 +2,13 @@ import { useState } from "react";
 import {
   motion,
   AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
 } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useIsScrolled } from "../hooks/useIsScrolled";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 50 && !isScrolled) {
-      setIsScrolled(true);
-    } else if (latest <= 50 && isScrolled) {
-      setIsScrolled(false);
-    }
-  });
+  const isScrolled = useIsScrolled();
 
   const navLinks = [
     { name: "Projects", href: "#projects" },

@@ -1,5 +1,6 @@
 import { Navbar } from "./Section/Navbar";
 import { Hero } from "./Section/Hero";
+import { Top } from "./components/Top";
 import Skills from "./Section/Skills";
 import BackgroundNoise from "./components/BackgroundNoise";
 
@@ -46,6 +47,7 @@ function App() {
           </div>
         </section>
       </main>
+      <Top />
     </div>
   );
 }
