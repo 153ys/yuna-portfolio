@@ -9,12 +9,16 @@ function App() {
     <div className="relative">
       <Navbar />
       <BackgroundNoise />
-
       <main>
         <Hero />
-
-        <section id="skills" className="min-h-[50vh] divider-dotline">
+        <section
+          id="skills"
+          className="min-h-screen py-20 px-6 divider-dotline "
+        >
           <div className="max-w-7xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-heading font-black mb-12 uppercase">
+              Skills
+            </h2>
             <Skills />
           </div>
         </section>

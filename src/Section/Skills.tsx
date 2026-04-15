@@ -1,4 +1,24 @@
 import { Code, Palette, Bot, Sparkles } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+
+/* 父容器：staggerChildren 讓子卡片依序進入 */
+const containerVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+/* 子卡片：從上方淡入 */
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+  },
+};
 
 const skillsData = [
   {
@@ -60,44 +80,47 @@ const skillsData = [
 
 export default function Skills() {
   return (
-    <section className="py-20 px-6">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold mb-4">Skills</h2>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {skillsData.map((skill, index) => {
-            const Icon = skill.icon;
-            return (
-              <div
-                key={index}
-                className="card-brutal shadow-brutal p-6 hover:scale-102"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <Icon className="w-6 h-6" />
-                  <h3 className="text-2xl font-bold">{skill.title}</h3>
-                </div>
-
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {skill.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="text-xs font-heading shadow-brutal-sm bg-primary border-brutal px-2 py-1 rounded-full"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-
-                <ul className="space-y-2 text-sm">
-                  {skill.items.map((item, i) => (
-                    <li key={i}>• {item}</li>
-                  ))}
-                </ul>
+    <section className="px-6">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+        className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6"
+      >
+        {skillsData.map((skill, index) => {
+          const Icon = skill.icon;
+          return (
+            <motion.div
+              key={index}
+              variants={cardVariants}
+              className="card-brutal shadow-brutal p-6 hover:scale-102"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <Icon className="w-6 h-6" />
+                <h3 className="text-2xl font-bold">{skill.title}</h3>
               </div>
-            );
-          })}
-        </div>
-      </div>
+
+              <div className="flex flex-wrap gap-2 mb-4">
+                {skill.tags.map((tag, i) => (
+                  <span
+                    key={i}
+                    className="text-xs font-heading shadow-brutal-sm bg-primary border-brutal px-2 py-1 rounded-full"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+
+              <ul className="space-y-2 text-sm">
+                {skill.items.map((item, i) => (
+                  <li key={i}>• {item}</li>
+                ))}
+              </ul>
+            </motion.div>
+          );
+        })}
+      </motion.div>
     </section>
   );
 }
