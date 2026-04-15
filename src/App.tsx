@@ -1,5 +1,6 @@
 import { Navbar } from "./Section/Navbar";
 import { Hero } from "./Section/Hero";
+import Skills from "./Section/Skills";
 import BackgroundNoise from "./components/BackgroundNoise";
 
 function App() {
@@ -11,17 +12,9 @@ function App() {
       <main>
         <Hero />
 
-        <section
-          id="skills"
-          className="min-h-[50vh] py-20 px-6 divider-dotline bg-white"
-        >
+        <section id="skills" className="min-h-[50vh] divider-dotline">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-heading font-black mb-12 uppercase">
-              Skills
-            </h2>
-            <div className="card-brutal p-8 text-center text-xl text-gray-500">
-              Skills components pending...
-            </div>
+            <Skills />
           </div>
         </section>
 
