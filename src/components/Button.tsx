@@ -3,12 +3,12 @@ import type { HTMLMotionProps } from "framer-motion";
 
 type ButtonModeProps = HTMLMotionProps<"button"> & {
   href?: never;
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "dark";
 };
 
 type AnchorModeProps = HTMLMotionProps<"a"> & {
   href: string;
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "dark";
 };
 type ButtonProps = ButtonModeProps | AnchorModeProps;
 
@@ -28,6 +28,7 @@ export const Button = ({
       "bg-white text-black shadow-brutal hover:shadow-brutal-sm hover:translate-y-[2px] hover:translate-x-[2px]",
     outline:
       "bg-transparent text-black border-3 border-black hover:bg-black hover:text-white",
+    dark: "bg-black text-white hover:translate-y-[2px] hover:translate-x-[2px] ",
   };
 
   const finalClassName = `${baseClasses} ${variants[variant]} ${className}`;

@@ -86,7 +86,7 @@ export default function Skills() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.15 }}
-        className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6"
+        className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6"
       >
         {skillsData.map((skill, index) => {
           const Icon = skill.icon;

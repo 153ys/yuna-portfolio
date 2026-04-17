@@ -1,6 +1,7 @@
 import { Navbar } from "./Section/Navbar";
 import { Hero } from "./Section/Hero";
 import { Top } from "./components/Top";
+import Projects from "./Section/Projects";
 import Skills from "./Section/Skills";
 import BackgroundNoise from "./components/BackgroundNoise";
 
@@ -31,9 +32,7 @@ function App() {
             <h2 className="text-4xl md:text-5xl font-heading font-black mb-12 uppercase">
               Projects
             </h2>
-            <div className="card-brutal p-8 text-center text-xl text-gray-500">
-              Projects components pending...
-            </div>
+            <Projects />
           </div>
         </section>
 
