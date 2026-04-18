@@ -14,7 +14,7 @@ function App() {
         <Hero />
         <section
           id="skills"
-          className="min-h-screen py-20 px-6 divider-dotline "
+          className="min-h-screen py-20 px-3 divider-dotline "
         >
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-heading font-black mb-12 uppercase">
@@ -26,7 +26,7 @@ function App() {
 
         <section
           id="projects"
-          className="min-h-screen py-20 px-6 divider-dotline bg-primary/20"
+          className="min-h-screen py-20 px-3 divider-dotline bg-primary/20"
         >
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-heading font-black mb-12 uppercase">
@@ -38,7 +38,7 @@ function App() {
 
         <section
           id="contact"
-          className="min-h-[50vh] py-20 px-6 divider-dotline bg-accent/20"
+          className="min-h-[50vh] py-20 px-3 divider-dotline bg-accent/20"
         >
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-heading font-black mb-12 uppercase">

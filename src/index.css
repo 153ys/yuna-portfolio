@@ -4,6 +4,7 @@
 
 @theme {
   --color-primary: #fef08a; /* 亮黃色輔助 */
+  --color-secondary: gray; /* 灰色 */
   --color-accent: #bbf7d0; /* 亮綠色輔助 */
   --color-bg-base: #faf8f5; /* 微微米白的背景 */
 
@@ -34,7 +35,7 @@
   }
 
   .hashtag {
-    @apply border-2 bg-white border-black;
+    @apply bg-white border-l-5 border-t-2 border-r-2 border-b-2 border-black;
   }
 }
 

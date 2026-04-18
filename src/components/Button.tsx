@@ -19,7 +19,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const baseClasses =
-    "px-6 py-3 font-heading font-bold cursor-pointer border-brutal transition-all duration-200 active:translate-y-1 active:translate-x-1 active:shadow-none inline-flex items-center justify-center gap-2";
+    "px-4 py-2 md:px-6 md:py-3 font-heading font-bold cursor-pointer border-brutal transition-all duration-200 active:translate-y-1 active:translate-x-1 active:shadow-none inline-flex items-center justify-center gap-2";
 
   const variants = {
     primary:
