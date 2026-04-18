@@ -2,8 +2,25 @@ import { useState } from "react";
 import { Button } from "../components/Button";
 import { projectsData, type Project } from "../components/projectsData";
 import { ArrowRight, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useScrollLock } from "usehooks-ts";
+
+const containerVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+  },
+};
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -12,66 +29,77 @@ export default function Projects() {
 
   return (
     <>
-      <section className="px-6 max-w-7xl mx-auto flex flex-col gap-6">
-        {/* Projects */}
-        {projectsData.map((project, index) => (
-          <div
-            key={index}
-            className="flex flex-col md:flex-row w-full card-brutal gap-6 md:gap-10 shadow-brutal sm:p-6 p-4"
-          >
-            <button
-              onClick={() => setSelectedProject(project)}
-              className="cursor-pointer card-brutal hover:scale-102 transition-all md:h-90 h-50 p-2 w-full md:w-1/2"
-            >
-              {project.pic ? (
-                <img
-                  src={project.pic}
-                  alt={project.title}
-                  className="w-full h-auto object-contain rounded-2xl"
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-100 rounded-2xl flex items-center justify-center font-bold text-gray-400">
-                  Project Pic
-                </div>
-              )}
-            </button>
-            <div className="flex gap-4 flex-col w-full md:w-1/2">
-              <h3 className="text-3xl font-bold">{project.title}</h3>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="text-xs font-heading font-medium border-2 rounded-full bg-primary px-2 py-1"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-              <div className="h-full flex flex-col justify-between">
-                <p>{project.description}</p>
-                {/* Buttons */}
-                <div className="md:mt-0 mt-5 flex gap-3 self-end">
-                  {project.github && (
-                    <Button
-                      variant="secondary"
-                      href={project.github}
-                      target="_blank"
-                    >
-                      Github
-                      <ArrowRight size={20} />
-                    </Button>
+      <section className="px-6">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.15 }}
+          className="max-w-7xl mx-auto flex flex-col gap-6"
+        >
+          {/* Projects */}
+          {projectsData.map((project, index) => {
+            return (
+              <motion.div
+                variants={cardVariants}
+                key={index}
+                className="flex flex-col md:flex-row w-full card-brutal gap-6 md:gap-10 shadow-brutal sm:p-6 p-4"
+              >
+                <button
+                  onClick={() => setSelectedProject(project)}
+                  className="cursor-pointer card-brutal hover:scale-102 transition-all md:h-90 h-50 p-2 w-full md:w-1/2"
+                >
+                  {project.pic ? (
+                    <img
+                      src={project.pic}
+                      alt={project.title}
+                      className="w-full h-auto object-contain rounded-2xl"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-100 rounded-2xl flex items-center justify-center font-bold text-gray-400">
+                      Project Pic
+                    </div>
                   )}
-                  <Button
-                    variant="dark"
-                    onClick={() => setSelectedProject(project)}
-                  >
-                    Read More <ArrowRight size={20} />
-                  </Button>
+                </button>
+                <div className="flex gap-4 flex-col w-full md:w-1/2">
+                  <h3 className="text-3xl font-bold">{project.title}</h3>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="text-xs font-heading font-medium border-2 rounded-full bg-primary px-2 py-1"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="h-full flex flex-col justify-between">
+                    <p>{project.description}</p>
+                    {/* Buttons */}
+                    <div className="md:mt-0 mt-5 flex gap-3 self-end">
+                      {project.github && (
+                        <Button
+                          variant="secondary"
+                          href={project.github}
+                          target="_blank"
+                        >
+                          Github
+                          <ArrowRight size={20} />
+                        </Button>
+                      )}
+                      <Button
+                        variant="dark"
+                        onClick={() => setSelectedProject(project)}
+                      >
+                        Read More <ArrowRight size={20} />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        ))}
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </section>
 
       {/* Project info 展開*/}
@@ -140,11 +168,11 @@ export default function Projects() {
                         {selectedProject.projectInfo.map((info, idx) => (
                           <div key={idx} className="flex flex-col gap-3">
                             {/* Title */}
-                            {info.title ? (
+                            {info.title && (
                               <h3 className="text-xl font-bold inline-block self-start px-2 py-1 border-l-5 border-primary">
                                 {info.title}
                               </h3>
-                            ) : null}
+                            )}
                             {/* SubTitle */}
                             {info.subTitle && (
                               <h3 className="bg-secondary/20 px-1 relative text-md inline-block self-start py-1 font-bold">
@@ -166,21 +194,18 @@ export default function Projects() {
                               </ul>
                             )}
                             {/* Image */}
-                            <div className="flex gap-4">
-                              {info.image && (
-                                <div className="flex flex-col gap-4">
-                                  {" "}
-                                  {info.image.map((img, i) => (
-                                    <img
-                                      key={i}
-                                      src={img}
-                                      alt={`${info.title}-${i}`}
-                                      className="w-full object-cover rounded-xl"
-                                    />
-                                  ))}
-                                </div>
-                              )}
-                            </div>
+                            {info.image && (
+                              <div className="flex flex-col gap-4">
+                                {info.image.map((img, i) => (
+                                  <img
+                                    key={i}
+                                    src={img}
+                                    alt={`${info.title}-${i}`}
+                                    className="w-full h-auto object-cover rounded-xl"
+                                  />
+                                ))}
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>
