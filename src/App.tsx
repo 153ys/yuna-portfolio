@@ -5,6 +5,7 @@ import Projects from "./Section/Projects";
 import Skills from "./Section/Skills";
 import BackgroundNoise from "./components/BackgroundNoise";
 import { Github } from "lucide-react";
+import { Marquee } from "./components/Marquee";
 
 function App() {
   return (
@@ -13,10 +14,8 @@ function App() {
       <BackgroundNoise />
       <main>
         <Hero />
-        <section
-          id="skills"
-          className="min-h-screen py-20 px-3 divider-dotline "
-        >
+        <Marquee />
+        <section id="skills" className="min-h-screen py-20 px-3">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-heading font-black mb-12 uppercase">
               Skills
@@ -36,8 +35,6 @@ function App() {
             <Projects />
           </div>
         </section>
-
-
       </main>
       <footer className="bg-accent/20 text-secondary select-none font-sans font-light py-2 flex w-full justify-center gap-4">
         <p>Portfolio by Yuna Kao © 2026</p>
