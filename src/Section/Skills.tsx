@@ -80,7 +80,7 @@ const skillsData = [
 
 export default function Skills() {
   return (
-    <section className="px-6">
+    <div className="relative px-6">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -121,6 +121,6 @@ export default function Skills() {
           );
         })}
       </motion.div>
-    </section>
+    </div>
   );
 }

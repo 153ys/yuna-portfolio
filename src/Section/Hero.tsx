@@ -5,7 +5,37 @@ import { Github, ArrowDown } from "lucide-react";
 export const Hero = () => {
   return (
     <section className="min-h-[85vh] pt-32 pb-20 px-6 flex flex-col justify-center items-center max-w-7xl mx-auto">
-      <div className="items-center w-full">
+      <div className="relative items-center w-full max-w-fit">
+        {/* deco animation */}
+        <motion.img
+          src="./deco_boom.png"
+          alt="vector"
+          className="-z-4 absolute -bottom-10 -left-6 md:-left-30 w-12 md:w-20 h-auto"
+          animate={{
+            y: [0, 5, 0],
+            rotate: [0, -10, 0],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.img
+          src="./deco_star.png"
+          alt="vector"
+          className="-z-4 absolute -top-8 -right-6 md:-right-24 w-12 md:w-20 h-auto"
+          animate={{
+            y: [0, -5, 0],
+            rotate: [0, 90, 0],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -13,6 +43,19 @@ export const Hero = () => {
           className="flex flex-col items-center justify-center gap-6"
         >
           <h1 className="relative text-5xl sm:text-6xl md:text-7xl font-black font-heading leading-[1.1] tracking-tight">
+            <motion.img
+              src="./deco_sparkle.png"
+              alt="vector"
+              className="absolute w-8 h-auto top-4 -left-10 md:-left-14"
+              animate={{
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
             <motion.div
               animate={{
                 y: [0, -5, 0],
