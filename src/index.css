@@ -47,4 +47,16 @@
   body {
     @apply bg-bg-base text-black font-sans antialiased overflow-x-hidden;
   }
+  /* 隱藏預設游標 */
+  html,
+  body,
+  #root {
+    cursor: none !important;
+  }
+
+  a,
+  button,
+  [role="button"] {
+    cursor: none !important;
+  }
 }
