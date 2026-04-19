@@ -5,8 +5,8 @@ export default function CustomCursor() {
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
-  const cursorX = useSpring(0, { stiffness: 500, damping: 35 });
-  const cursorY = useSpring(0, { stiffness: 500, damping: 35 });
+  const cursorX = useSpring(0, { stiffness: 1000, damping: 40, mass: 0.1 });
+  const cursorY = useSpring(0, { stiffness: 1000, damping: 40, mass: 0.1 });
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
@@ -14,13 +14,11 @@ export default function CustomCursor() {
       cursorY.set(e.clientY);
     };
 
-    // 偵測是否在可點擊元素上
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const isClickable =
-        target.tagName === "A" ||
-        target.tagName === "BUTTON" ||
-        window.getComputedStyle(target).cursor === "pointer";
+      const isClickable = !!target.closest(
+        "a, button, input, select, textarea, [role='button'], .cursor-pointer",
+      );
 
       setIsHovered(isClickable);
     };
@@ -43,7 +41,7 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 z-105 pointer-events-none"
+      className="fixed -top-5 -left-5 z-105 pointer-events-none"
       style={{
         x: cursorX,
         y: cursorY,
