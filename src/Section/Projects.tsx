@@ -4,6 +4,7 @@ import { projectsData, type Project } from "../components/projectsData";
 import { ArrowRight, X } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useScrollLock } from "usehooks-ts";
+import { Github } from "lucide-react";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -29,7 +30,7 @@ export default function Projects() {
 
   return (
     <>
-      <section className="px-6">
+      <section className="relative px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -47,13 +48,13 @@ export default function Projects() {
               >
                 <button
                   onClick={() => setSelectedProject(project)}
-                  className="cursor-pointer card-brutal hover:scale-102 transition-all md:h-90 h-50 p-2 w-full md:w-1/2"
+                  className="justify-center items-center flex cursor-pointer hover:scale-102 transition-all md:h-90 h-50 w-full md:w-1/2"
                 >
                   {project.pic ? (
                     <img
                       src={project.pic}
                       alt={project.title}
-                      className="w-auto h-full object-contain rounded-2xl"
+                      className="w-full h-full object-cover rounded-2xl"
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-100 rounded-2xl flex items-center justify-center font-bold text-gray-400">
@@ -63,6 +64,9 @@ export default function Projects() {
                 </button>
                 <div className="flex gap-4 flex-col w-full md:w-1/2">
                   <h3 className="text-3xl font-bold">{project.title}</h3>
+                  <p className="text-md font-light text-gray-500">
+                    {project.time}
+                  </p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tag, i) => (
                       <span
@@ -74,17 +78,26 @@ export default function Projects() {
                     ))}
                   </div>
                   <div className="h-full flex flex-col justify-between">
-                    <p>{project.description}</p>
+                    <p>{project.info}</p>
                     {/* Buttons */}
-                    <div className="md:mt-0 mt-5 flex gap-3 self-end">
+                    <div className="md:text-sm text-xs md:mt-0 mt-5 flex gap-3 self-end">
+                      {project.projectLink && (
+                        <Button
+                          variant="secondary"
+                          href={project.projectLink}
+                          target="_blank"
+                        >
+                          前往網站
+                          <ArrowRight size={20} />
+                        </Button>
+                      )}
                       {project.github && (
                         <Button
                           variant="secondary"
                           href={project.github}
                           target="_blank"
                         >
-                          Github
-                          <ArrowRight size={20} />
+                          <Github size={20} />
                         </Button>
                       )}
                       <Button
@@ -111,7 +124,7 @@ export default function Projects() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto"
+              className="absolute inset-0 bg-gray-200/80 pointer-events-auto"
             />
 
             <motion.div
@@ -130,11 +143,11 @@ export default function Projects() {
               </button>
               <div className="md:flex md:flex-row md:gap-10 px-2 relative overflow-y-auto overflow-x-hidden">
                 {/* 左半部 */}
-                <div className="bg-primary/20 p-5 rounded-2xl md:w-[40%] flex flex-col gap-2 mt-2 md:sticky md:top-0 h-max pb-4">
+                <div className="bg-primary/10 p-5 rounded-2xl md:w-[40%] flex flex-col gap-2 mt-2 md:sticky md:top-0 h-max pb-4">
                   {selectedProject.pic && (
                     <img
                       src={selectedProject.pic}
-                      className="w-full object-cover border-2 border-black rounded-2xl max-h-[30vh] md:max-h-[40vh]"
+                      className="w-full object-contain rounded-2xl max-h-[30vh] md:max-h-[40vh]"
                       alt={selectedProject.title}
                     />
                   )}
@@ -152,13 +165,13 @@ export default function Projects() {
                     {selectedProject.tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="text-xs font-heading hashtag px-3 py-1"
+                        className="text-xs font-heading border-2 bg-primary/30 rounded-3xl px-3 py-1"
                       >
                         #{tag}
                       </span>
                     ))}
                   </div>
-                  {selectedProject.description}
+                  {selectedProject.info}
                 </div>
                 {/* 右半部 */}
                 <div className="md:flex-1 text-md leading-relaxed flex flex-col gap-5">
@@ -175,19 +188,34 @@ export default function Projects() {
                             )}
                             {/* SubTitle */}
                             {info.subTitle && (
-                              <h3 className="bg-secondary/20 px-1 relative text-md inline-block self-start py-1 font-bold">
+                              <h3 className="px-1 relative text-md inline-block self-start py-1 font-bold">
+                                <img
+                                  className="inline-block w-5 h-5 mr-2"
+                                  src="./deco_flower_3.png"
+                                  alt="deco"
+                                />
                                 {info.subTitle}
                               </h3>
                             )}
                             {/* Content */}
                             {info.content && (
-                              <div className="flex flex-col gap-3">
-                                {info.content}
+                              <div className="flex flex-col leading-relaxed gap-1">
+                                {info.content
+                                  .split("。")
+                                  .map(
+                                    (text, i, arr) =>
+                                      text.trim() +
+                                      (i === arr.length - 1 ? "" : "。"),
+                                  )
+                                  .filter((text) => text !== "")
+                                  .map((paragraph, i) => (
+                                    <p key={i}>{paragraph}</p>
+                                  ))}
                               </div>
                             )}
                             {/* List */}
                             {info.list && (
-                              <ul className="list-disc list-inside space-y-2 ml-2">
+                              <ul className="text-mist-700 list-disc list-inside space-y-1 ml-2">
                                 {info.list.map((item, i) => (
                                   <li key={i}>{item}</li>
                                 ))}
@@ -195,7 +223,7 @@ export default function Projects() {
                             )}
                             {/* Image */}
                             {info.image && (
-                              <div className="flex flex-col gap-4">
+                              <div className="mx-4 rounded-xl flex flex-col gap-4 shadow-md">
                                 {info.image.map((img, i) => (
                                   <img
                                     key={i}
@@ -206,19 +234,25 @@ export default function Projects() {
                                 ))}
                               </div>
                             )}
+                            {/* Image-Info */}
+                            {info.description && (
+                              <p className="text-center text-gray-500 italic text-sm mb-4">
+                                {info.description}
+                              </p>
+                            )}
                           </div>
                         ))}
                       </div>
                     )}
                   {/* 按鈕 */}
-                  <div className="flex mt-1 justify-end gap-4 pt-2 pb-4 ">
+                  <div className="text-sm flex mt-1 justify-center md:justify-end gap-4 pt-2 pb-4 ">
                     {selectedProject.github && (
                       <Button
                         variant="secondary"
                         href={selectedProject.github}
                         target="_blank"
                       >
-                        Github
+                        <Github size={20} /> Github
                       </Button>
                     )}
                     {selectedProject.projectLink && (

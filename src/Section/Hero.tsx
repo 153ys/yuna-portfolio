@@ -106,6 +106,14 @@ export const Hero = () => {
             >
               Medium
             </Button>
+            <Button
+              variant="secondary"
+              className="w-full sm:w-auto"
+              href="https://yunakao.myportfolio.com/"
+              target="_blank"
+            >
+              Graphic Design
+            </Button>
           </div>
         </motion.div>
       </div>
