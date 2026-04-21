@@ -16,7 +16,7 @@ export type InfoSection = {
   list?: string[];
   image?: string[];
   description?: string;
-  link?: string;
+  figmaLink?: string;
 };
 
 export const projectsData: Project[] = [
@@ -52,6 +52,7 @@ export const projectsData: Project[] = [
         title: "專案流程",
         subTitle: "線框稿與設計",
         content: "以 Miro 繪製 Wireframe，Figma 繪製 Mockup",
+        figmaLink: "https://www.figma.com/design/LJspNn5lSVP7Ua0P59CyP0/PetPetNi?node-id=0-1&t=dd3hEEg6pE2Kw8pC-1",
         image: [
           "https://res.cloudinary.com/dsxurz7zb/image/upload/v1776593214/social_view_yzskql.webp",
           "https://res.cloudinary.com/dsxurz7zb/image/upload/v1776593165/comment_view_ir15lj.webp",

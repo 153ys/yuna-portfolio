@@ -234,6 +234,15 @@ export default function Projects() {
                                 ))}
                               </div>
                             )}
+                            {info.figmaLink && (
+                              <a
+                                className="px-5 py-1 text-sm text-blue-400"
+                                href={info.figmaLink}
+                                target="_blank"
+                              >
+                                Figma Link
+                              </a>
+                            )}
                             {/* Image-Info */}
                             {info.description && (
                               <p className="text-center text-gray-500 italic text-sm mb-4">
