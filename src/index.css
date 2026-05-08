@@ -8,6 +8,12 @@
   --color-accent: #bbf7d0; /* 亮綠色輔助 */
   --color-bg-base: #faf8f5; /* 微微米白的背景 */
 
+  --color-skills-folder: #fbcfe8; /* 淡粉 */
+  --color-skills-blue: #a8abff; /* 藍紫 */
+  --color-skills-yellow: #ffe066; /* 黃 */
+  --color-skills-green: #bbf7d0; /* 綠 */
+  --color-skills-pink: #f8a0cd; /* 粉 */
+
   --font-sans: "Inter", "Noto Sans TC", sans-serif;
   --font-heading: "Outfit", "Noto Sans TC", sans-serif;
 
