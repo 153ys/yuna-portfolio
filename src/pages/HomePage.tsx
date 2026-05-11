@@ -18,7 +18,7 @@ export default function HomePage() {
     const scrollTarget = (location.state as { scrollTo?: string } | null)
       ?.scrollTo;
     if (!scrollTarget) return;
-    
+
     const timer = setTimeout(() => {
       if (scrollTarget === "#top") {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -45,6 +45,10 @@ export default function HomePage() {
     <motion.div
       style={{ backgroundColor }}
       className="min-h-screen transition-colors duration-300"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       <div className="relative">
         <BackgroundNoise />

@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { motion, type Variants } from "framer-motion";
+import { useParams, useNavigate, useNavigationType } from "react-router-dom";
 import { projectsData } from "../components/projectsData";
 import BackgroundNoise from "../components/BackgroundNoise";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,10 +9,38 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Button } from "../components/Button";
 import { Top } from "../components/Top";
 
+const pageVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.5 } },
+};
+
+const sidebarVariants: Variants = {
+  hidden: { opacity: 0, x: -30 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: "easeOut" } },
+};
+
+const contentVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
 export default function ProjectPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const navigationType = useNavigationType();
   const project = projectsData.find((p) => p.id === id);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
+  const handleBack = () => {
+    if (navigationType === "PUSH" || navigationType === "REPLACE") {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
+  };
 
   if (!project) {
     return (
@@ -22,13 +51,27 @@ export default function ProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg-base">
+    <motion.div
+      className="min-h-screen bg-bg-base"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    >
       <BackgroundNoise />
       <Top />
       <main className="max-w-7xl mx-auto px-4 pt-28 pb-20">
-        <div className="md:flex md:gap-10">
+        <motion.div
+          className="md:flex md:gap-10"
+          initial="hidden"
+          animate="show"
+          variants={pageVariants}
+        >
           {/* Sidebar */}
-          <div className="md:w-100 shrink-0 mb-8 md:mb-0">
+          <motion.div
+            className="md:w-100 shrink-0 mb-8 md:mb-0"
+            variants={sidebarVariants}
+          >
             <div className="relative bg-primary/10 p-5 rounded-2xl border-2 border-black md:sticky md:top-30 h-max flex flex-col gap-4">
               <motion.img
                 src="./deco_boom.png"
@@ -45,13 +88,7 @@ export default function ProjectPage() {
               />
               {/* 返回按鈕 */}
               <button
-                onClick={() => {
-                  if (window.history.state?.idx > 0) {
-                    navigate(-1);
-                  } else {
-                    navigate("/");
-                  }
-                }}
+                onClick={handleBack}
                 className="bg-white/50 hover:bg-accent/50 duration-500 group flex items-center gap-2 text-sm font-semibold border-2 rounded-full px-4 py-2 w-fit"
               >
                 <FontAwesomeIcon
@@ -61,7 +98,7 @@ export default function ProjectPage() {
                 返回 Projects
               </button>
               {/* Title */}
-              <div className="inset-0 flex flex-col">
+              <div className="flex flex-col">
                 <h1 className="text-4xl md:text-5xl font-black font-heading leading-tight">
                   {project.title}
                 </h1>
@@ -71,9 +108,9 @@ export default function ProjectPage() {
               </div>
               {/* Tags */}
               <div className="flex flex-wrap gap-2 border-b-2 pb-5">
-                {project.tags.map((tag, i) => (
+                {project.tags.map((tag) => (
                   <span
-                    key={i}
+                    key={tag}
                     className="text-xs font-heading border-2 bg-white rounded-3xl px-3 py-1"
                   >
                     #{tag}
@@ -112,10 +149,13 @@ export default function ProjectPage() {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* 內容區 */}
-          <div className="flex-1 flex flex-col gap-5 text-md leading-relaxed">
+          <motion.div
+            className="flex-1 flex flex-col gap-5 text-md leading-relaxed"
+            variants={contentVariants}
+          >
             {project.projectInfo && project.projectInfo.length > 0 && (
               <div className="flex flex-col gap-5">
                 {project.projectInfo.map((info, idx) => (
@@ -124,7 +164,7 @@ export default function ProjectPage() {
                       <h3 className="text-2xl font-bold inline-block self-start px-2 py-1 border-b-2 border-dotted w-full">
                         <img
                           className="inline-block w-5 h-5 mr-2"
-                          src={`deco_sparkle.png`}
+                          src="./deco_sparkle.png"
                           alt="deco"
                         />
                         {info.title}
@@ -136,9 +176,7 @@ export default function ProjectPage() {
                       </h4>
                     )}
                     {info.content && (
-                      <div className="flex flex-col leading-relaxed gap-1">
-                        {info.content}
-                      </div>
+                      <p className="leading-relaxed">{info.content}</p>
                     )}
                     {info.list?.map((group, gi) => (
                       <ul
@@ -186,34 +224,9 @@ export default function ProjectPage() {
                 ))}
               </div>
             )}
-
-            {/* 底部按鈕 */}
-            <div className="text-sm flex justify-end gap-4 pt-2 pb-4">
-              {project.github && (
-                <Button
-                  variant="secondary"
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FontAwesomeIcon icon={faGithub} className="w-5 h-5" /> Github
-                </Button>
-              )}
-              {project.projectLink && (
-                <Button
-                  variant="dark"
-                  href={project.projectLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Visit Website{" "}
-                  <FontAwesomeIcon icon={faArrowRight} className="w-5 h-5" />
-                </Button>
-              )}
-            </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </main>
-    </div>
+    </motion.div>
   );
 }
