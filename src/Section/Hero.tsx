@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Button } from "../components/Button";
-import { Github, ArrowDown } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 export const Hero = () => {
   return (
@@ -67,12 +69,32 @@ export const Hero = () => {
               }}
               className="absolute -top-12 shadow-brutal-sm -left-20 inline-block bg-primary border-brutal px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider transform -rotate-5"
             >
-              UI/UX & Frontend Developer
+              UI/UX & Frontend
             </motion.div>
             Hi, I'm{" "}
-            <span className="transform inline-block hover:scale-105 transition-transform cursor-default">
-              Yuna
-            </span>
+            <motion.button
+              data-draggable="true"
+              drag
+              dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+              dragElastic={{ left: 0.1, right: 0.1, top: 0.1, bottom: 0.1 }}
+              whileDrag={{ scale: 1.1, rotate: 1 }}
+              whileHover={{
+                border: "2px solid #a8abff",
+                color: "#695add",
+                rotate: 2,
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+              dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+              className="bg-bg-base/50 border-2 relative p-2 transform inline-block"
+            >
+              <div className="absolute border-2 bg-bg-base w-3 h-3 -top-2 -left-2"></div>
+              <div className="absolute border-2 bg-bg-base w-3 h-3 -top-2 -right-2"></div>
+              <div className="absolute border-2 bg-bg-base w-3 h-3 -bottom-2 -left-2"></div>
+              <div className="absolute border-2 bg-bg-base w-3 h-3 -bottom-2 -right-2"></div>
+              <span className="transition-colors duration-100">Yuna</span>
+            </motion.button>
             <br />
           </h1>
 
@@ -82,13 +104,14 @@ export const Hero = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
             <Button
-              variant="primary"
-              className="bg-accent! w-full sm:w-auto"
+              variant="accent"
+              className="w-full sm:w-auto"
               onClick={() =>
                 document.getElementById("projects")?.scrollIntoView()
               }
             >
-              View Projects <ArrowDown size={20} />
+              View Projects{" "}
+              <FontAwesomeIcon icon={faArrowDown} className="w-5 h-5" />
             </Button>
             <Button
               variant="secondary"
@@ -96,7 +119,7 @@ export const Hero = () => {
               href="https://github.com/153ys"
               target="_blank"
             >
-              <Github size={20} /> GitHub
+              <FontAwesomeIcon icon={faGithub} className="w-5 h-5" /> GitHub
             </Button>
             <Button
               variant="secondary"
