@@ -3,12 +3,12 @@ import type { HTMLMotionProps } from "framer-motion";
 
 type ButtonModeProps = HTMLMotionProps<"button"> & {
   href?: never;
-  variant?: "primary" | "secondary" | "outline" | "dark";
+  variant?: "primary" | "secondary" | "accent" | "outline" | "dark";
 };
 
 type AnchorModeProps = HTMLMotionProps<"a"> & {
   href: string;
-  variant?: "primary" | "secondary" | "outline" | "dark";
+  variant?: "primary" | "secondary" | "accent" | "outline" | "dark";
 };
 type ButtonProps = ButtonModeProps | AnchorModeProps;
 
@@ -23,12 +23,14 @@ export const Button = ({
 
   const variants = {
     primary:
-      "hover:bg-white bg-primary text-black shadow-brutal hover:shadow-brutal-sm hover:translate-y-[2px] hover:translate-x-[2px]",
+      "hover:bg-accent bg-primary text-black shadow-brutal hover:shadow-brutal-sm hover:translate-y-[2px] hover:translate-x-[2px]",
     secondary:
       "hover:bg-primary/50 bg-white text-black shadow-brutal hover:shadow-brutal-sm hover:translate-y-[2px] hover:translate-x-[2px]",
+    accent:
+      "bg-accent text-black shadow-brutal hover:shadow-brutal-sm hover:translate-y-[2px] hover:translate-x-[2px]",
     outline:
       "bg-transparent text-black border-3 border-black hover:bg-black hover:text-white",
-    dark: "bg-black text-white hover:translate-y-[2px] hover:translate-x-[2px] ",
+    dark: "bg-black hover:bg-accent text-white hover:translate-y-[2px] hover:text-black hover:translate-x-[2px] ",
   };
 
   const finalClassName = `${baseClasses} ${variants[variant]} ${className}`;

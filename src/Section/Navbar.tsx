@@ -1,12 +1,36 @@
 import { motion } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useIsScrolled } from "../hooks/useIsScrolled";
+
+const NAV_LINKS = [
+  { name: "Skills", hash: "#skills" },
+  { name: "Projects", hash: "#projects" },
+] as const;
 
 export const Navbar = () => {
   const isScrolled = useIsScrolled();
-  const navLinks = [
-    { name: "Projects", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-  ];
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    hash: string,
+  ) => {
+    e.preventDefault();
+
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollTo: hash } });
+      return;
+    }
+
+    if (hash === "#top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const element = document.getElementById(hash.replace("#", ""));
+    element?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <nav
@@ -29,18 +53,24 @@ export const Navbar = () => {
             isScrolled ? "max-w-7xl" : ""
           }`}
         >
-          <a href="#" className="text-2xl font-black tracking-tight">
+          <a
+            href="/"
+            onClick={(e) => handleNavClick(e, "#top")}
+            className="text-2xl font-black tracking-tight"
+          >
             Yuna
           </a>
 
           <div className="flex items-center gap-4 md:gap-8">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.name}
-                href={link.href}
-                className="text-md md:text-lg font-bold hover:text-black/60 transition-colors"
+                href={link.hash}
+                onClick={(e) => handleNavClick(e, link.hash)}
+                className="relative group text-base md:text-xl font-bold inline-block"
               >
-                {link.name}
+                <span className="relative z-10">{link.name}</span>
+                <span className="absolute left-0 bottom-0 md:bottom-1 w-full h-2 md:h-5 bg-primary -z-10 scale-x-0 group-hover:scale-x-100 transition-transform origin-left delay-150 duration-500 ease-out"></span>
               </a>
             ))}
           </div>
