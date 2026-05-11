@@ -122,40 +122,34 @@ export default function ProjectPage() {
                   <div key={idx} className="flex flex-col gap-3">
                     {info.title && (
                       <h3 className="text-2xl font-bold inline-block self-start px-2 py-1 border-b-2 border-dotted w-full">
+                        <img
+                          className="inline-block w-5 h-5 mr-2"
+                          src={`deco_sparkle.png`}
+                          alt="deco"
+                        />
                         {info.title}
                       </h3>
                     )}
                     {info.subTitle && (
                       <h4 className="px-1 relative text-md inline-block self-start py-1 font-bold">
-                        <img
-                          className="inline-block w-5 h-5 mr-2"
-                          src={`deco_flower_3.png`}
-                          alt="deco"
-                        />
                         {info.subTitle}
                       </h4>
                     )}
                     {info.content && (
                       <div className="flex flex-col leading-relaxed gap-1">
-                        {info.content
-                          .split("。")
-                          .map(
-                            (text, i, arr) =>
-                              text.trim() + (i === arr.length - 1 ? "" : "。"),
-                          )
-                          .filter((text) => text !== "")
-                          .map((paragraph, i) => (
-                            <p key={i}>{paragraph}</p>
-                          ))}
+                        {info.content}
                       </div>
                     )}
-                    {info.list && (
-                      <ul className="list-disc list-inside space-y-1 ml-2">
-                        {info.list.map((item, i) => (
+                    {info.list?.map((group, gi) => (
+                      <ul
+                        key={gi}
+                        className="list-disc list-inside space-y-1 ml-2"
+                      >
+                        {group.map((item, i) => (
                           <li key={i}>{item}</li>
                         ))}
                       </ul>
-                    )}
+                    ))}
                     {info.image?.some((img) => img.image.trim() !== "") && (
                       <div className="mx-4 rounded-xl flex flex-col gap-4 shadow-md">
                         {info.image
