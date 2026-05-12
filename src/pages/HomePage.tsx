@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Hero } from "../Section/Hero";
-import { Top } from "../components/Top";
 import Projects from "../Section/Projects";
 import Skills from "../Section/Skills";
 import BackgroundNoise from "../components/BackgroundNoise";
@@ -112,7 +111,6 @@ export default function HomePage() {
             <FontAwesomeIcon icon={faGithub} className="w-4 h-4" /> GitHub
           </a>
         </footer>
-        <Top />
       </div>
     </motion.div>
   );
