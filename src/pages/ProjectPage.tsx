@@ -17,11 +17,6 @@ const sidebarVariants: Variants = {
   show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: "easeOut" } },
 };
 
-const contentVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
-
 export default function ProjectPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -36,6 +31,10 @@ export default function ProjectPage() {
     }
   };
 
+  const currentIndex = projectsData.findIndex((p) => p.id === id);
+  const prevProject = projectsData[currentIndex - 1] ?? null;
+  const nextProject = projectsData[currentIndex + 1] ?? null;
+
   if (!project) {
     return (
       <div className="min-h-screen bg-bg-base flex items-center justify-center">
@@ -48,11 +47,14 @@ export default function ProjectPage() {
     <motion.div
       className="min-h-screen bg-bg-base"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.3, delay: 0.3, ease: "easeInOut" } }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.3, delay: 0.3, ease: "easeInOut" },
+      }}
       exit={{ opacity: 0, transition: { duration: 0.3, ease: "easeInOut" } }}
     >
       <BackgroundNoise />
-      <main className="max-w-7xl mx-auto px-4 pt-28 pb-20">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 pt-28 pb-20">
         <motion.div
           className="md:flex md:gap-10"
           initial="hidden"
@@ -61,14 +63,14 @@ export default function ProjectPage() {
         >
           {/* Sidebar */}
           <motion.div
-            className="md:w-100 shrink-0 mb-8 md:mb-0"
+            className="md:w-1/3 shrink-0 mb-8 md:mb-0"
             variants={sidebarVariants}
           >
             <div className="relative bg-primary/10 p-5 rounded-2xl border-2 border-black md:sticky md:top-30 h-max flex flex-col gap-4">
               <motion.img
                 src="./deco_boom.png"
                 alt="vector"
-                className="absolute w-12 md:w-15 h-auto right-5 -top-4 md:-top-6 z-50"
+                className="absolute w-12 md:w-15 h-auto right-5 -top-4 md:-top-6"
                 animate={{
                   rotate: [0, -20, 0],
                 }}
@@ -87,7 +89,7 @@ export default function ProjectPage() {
                   icon={faArrowLeft}
                   className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1"
                 />
-                返回 Projects
+                返回首頁
               </button>
               {/* Title */}
               <div className="flex flex-col">
@@ -111,12 +113,10 @@ export default function ProjectPage() {
               </div>
               {/* 簡介 */}
               {project.info && (
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  {project.info}
-                </p>
+                <p className="text-sm leading-relaxed">{project.info}</p>
               )}
               {/* 操作按鈕 */}
-              <div className="flex gap-2 w-fit mt-5">
+              <div className="flex flex-wrap gap-2 w-fit mt-5">
                 {project.projectLink && (
                   <Button
                     variant="dark"
@@ -144,18 +144,28 @@ export default function ProjectPage() {
           </motion.div>
 
           {/* 內容區 */}
-          <motion.div
-            className="flex-1 flex flex-col gap-5 text-md leading-relaxed"
-            variants={contentVariants}
-          >
+          <div className="flex-1 flex flex-col gap-5 text-md leading-relaxed">
             {project.projectInfo && project.projectInfo.length > 0 && (
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-6">
                 {project.projectInfo.map((info, idx) => (
-                  <div key={idx} className="flex flex-col gap-3">
+                  <motion.div
+                    key={idx}
+                    className="flex flex-col gap-2"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+                  >
                     {info.title && (
                       <h3 className="text-2xl font-bold inline-block self-start px-2 py-1 border-b-2 border-dotted w-full">
-                        <img
+                        <motion.img
                           className="inline-block w-5 h-5 mr-2"
+                          animate={{ scale: [1, 1.3, 1] }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
                           src="./deco_sparkle.png"
                           alt="deco"
                         />
@@ -163,9 +173,12 @@ export default function ProjectPage() {
                       </h3>
                     )}
                     {info.subTitle && (
-                      <h4 className="px-1 relative text-md inline-block self-start py-1 font-bold">
-                        {info.subTitle}
-                      </h4>
+                      <div className="relative w-fit">
+                        <h4 className="relative z-10 text-[18px] inline-block self-start py-1 font-bold">
+                          {info.subTitle}
+                        </h4>
+                        <span className="absolute bottom-2 left-0 h-3 w-full bg-primary/70"></span>
+                      </div>
                     )}
                     {info.content && (
                       <p className="leading-relaxed">{info.content}</p>
@@ -180,6 +193,18 @@ export default function ProjectPage() {
                         ))}
                       </ul>
                     ))}
+                    {info.tech && (
+                      <div className="pt-4 flex flex-wrap gap-2 mb-4">
+                        {info.tech.map((t) => (
+                          <span
+                            key={t}
+                            className="hover:-translate-y-1 duration-200 hover:bg-primary/50 delay-100 text-sm font-mono font-bold border-2 px-2 py-1 rounded-lg bg-white"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     {info.image?.some((img) => img.image.trim() !== "") && (
                       <div className="mx-4 rounded-xl flex flex-col gap-4 shadow-md">
                         {info.image
@@ -212,13 +237,59 @@ export default function ProjectPage() {
                         {info.description}
                       </p>
                     )}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             )}
-          </motion.div>
+          </div>
         </motion.div>
       </main>
+      {/* 專案列表導覽 */}
+      <div className="px-5 border-t-3 border-black ">
+        {/* 上一個專案 */}
+        <div className="max-w-7xl mx-auto grid grid-cols-2">
+          {prevProject ? (
+            <button
+              onClick={() => navigate(`/projects/${prevProject.id}`)}
+              className="w-fit group flex flex-row items-center gap-4 py-6 text-left transition-colors duration-300 px-4"
+            >
+              <FontAwesomeIcon
+                icon={faArrowLeft}
+                className="text-2xl group-hover:-translate-x-1 transition-transform duration-200"
+              />
+              <div className="hidden md:flex flex-col gap-1 font-black font-heading text-xl md:text-2xl leading-tight">
+                <p className="text-sm text-gray-500 flex items-center gap-1">
+                  上一個專案
+                </p>
+                <p>{prevProject.title}</p>
+              </div>
+            </button>
+          ) : (
+            <div />
+          )}
+
+          {/* 下一個專案 */}
+          {nextProject ? (
+            <button
+              onClick={() => navigate(`/projects/${nextProject.id}`)}
+              className="w-fit ml-auto group flex flex-row items-center gap-4 py-6 text-right transition-colors duration-400 px-4"
+            >
+              <div className="hidden md:flex flex-col gap-1 items-end font-black font-heading text-xl md:text-2xl leading-tight">
+                <p className="text-sm text-gray-500 flex items-center gap-1">
+                  下一個專案
+                </p>
+                <p>{nextProject.title}</p>
+              </div>
+              <FontAwesomeIcon
+                icon={faArrowRight}
+                className="text-2xl group-hover:text-gray-700 group-hover:translate-x-1 transition-transform duration-200"
+              />
+            </button>
+          ) : (
+            <div />
+          )}
+        </div>
+      </div>
     </motion.div>
   );
 }

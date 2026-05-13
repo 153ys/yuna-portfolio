@@ -18,6 +18,7 @@ export type InfoSection = {
   image?: Image[];
   description?: string;
   figmaLink?: string;
+  tech?: string[];
 };
 
 export type Image = {
@@ -42,27 +43,32 @@ export const projectsData: Project[] = [
     projectLink: "https://pet-pet-ni.vercel.app/",
     projectInfo: [
       {
+        title: "技術棧",
+        tech: [
+          "Vue.js",
+          "Pinia",
+          "Tailwind css",
+          "Vite",
+          "Node.js",
+          "Express",
+          "Supabase",
+          "Zeabur",
+          "Cloudinary",
+        ],
+      },
+      {
         title: "我的角色",
-        subTitle: "整體視覺規劃、訂定全域樣式規範",
-        list: [["制定社群頁共用元件與專案設計規範"]],
+        subTitle: "視覺規劃、訂定全域樣式規範",
+        content:
+          "使用 Tailwind css 訂定專案設計規範，包含顏色、字體、間距等，讓視覺更有一致性",
       },
       {
         subTitle: "社群頁核心功能開發",
         list: [
           [
-            "管理社群頁資料庫，串接後端 API 與資料狀態管理 (Pinia)",
-            "實作 RWD 響應式佈局",
-          ],
-        ],
-      },
-      {
-        title: "前端實作",
-        list: [
-          [
-            "使用 Vue 3 建立元件化結構",
-            "拆分貼文卡片、等可重用元件及邏輯",
-            "處理響應式版面，確保手機與桌機一致性",
-            "串接資料與管理互動狀態",
+            "管理社群頁資料庫，串接後端 API 與資料狀態管理",
+            "拆分貼文卡片、等可重用元件及邏輯，提升程式碼品質與可維護性",
+            "實作響應式設計，確保手機與桌機一致性，並符合手機版面操作習慣",
           ],
         ],
       },
@@ -111,14 +117,19 @@ export const projectsData: Project[] = [
       },
       {
         title: "心得與反思",
-        list: [["UX 的重點不在於畫得多漂亮，而是流程是否合理"]],
+        list: [
+          [
+            "做功能前先釐清資料流、狀態，會讓後續開發更順利，也能發現一些自己沒注意到的流程小問題。",
+          ],
+          ["UX 的重點不在於畫得多漂亮，而是流程是否合理"],
+        ],
       },
     ],
   },
 
   {
     id: "pet-matching-ux",
-    title: "寵物社交配對體驗優化",
+    title: "PetPetNi 配對體驗優化",
     time: "2026/04",
     tags: ["Case Study", "UX", "UserFlow", "Claude Design"],
     info: "以 PetPetNi 的抽卡配對機制為出發點，重新設計配對結果的呈現方式，提升使用者的理解與信任，並引導自然開啟互動。",
