@@ -4,10 +4,9 @@ import { Hero } from "../Section/Hero";
 import Projects from "../Section/Projects";
 import Skills from "../Section/Skills";
 import BackgroundNoise from "../components/BackgroundNoise";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Marquee } from "../components/Marquee";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Icon from "../components/Icon";
 
 export default function HomePage() {
   const location = useLocation();
@@ -58,17 +57,13 @@ export default function HomePage() {
             <div className="max-w-7xl mx-auto">
               <div className="md:text-left text-center">
                 <h2 className="relative inline-block mb-12 md:mb-0 text-4xl md:text-5xl font-heading font-black uppercase">
-                  <motion.img
-                    src="./deco_flower_3.png"
-                    alt="vector"
-                    className="-z-4 absolute -top-6 -left-6 md:-left-12 w-12 md:w-20 h-auto"
+                  <motion.div
+                    className="-z-4 absolute -top-6 -left-6 md:-left-12 w-12 md:w-20"
                     animate={{ y: [0, 5, 0], rotate: [0, -10, 0] }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <Icon name="deco_flower_3" className="w-full h-full" />
+                  </motion.div>
                   Skills
                 </h2>
               </div>
@@ -83,17 +78,13 @@ export default function HomePage() {
             <div className="max-w-7xl mx-auto">
               <div className="md:text-left text-center mb-12">
                 <h2 className="relative inline-block text-4xl md:text-5xl font-heading font-black uppercase">
-                  <motion.img
-                    src="./deco_flower_2.png"
-                    alt="vector"
-                    className="opacity-60 -z-4 absolute -top-6 -left-6 md:-left-12 w-12 md:w-20 h-auto"
+                  <motion.div
+                    className="opacity-60 -z-4 absolute -top-6 -left-6 md:-left-12 w-12 md:w-20"
                     animate={{ y: [0, 5, 0], rotate: [0, -10, 0] }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <Icon name="deco_flower_2" className="w-full h-full" />
+                  </motion.div>
                   Projects
                 </h2>
               </div>
@@ -101,16 +92,6 @@ export default function HomePage() {
             </div>
           </section>
         </main>
-        <footer className="bg-accent/20 text-gray-500 select-none font-sans font-light py-2 flex w-full justify-center gap-4">
-          <p>Portfolio by Yuna Kao © 2026</p>
-          <a
-            className="hover:text-secondary transition-colors duration-300 flex items-center"
-            href="https://github.com/153ys"
-            target="_blank"
-          >
-            <FontAwesomeIcon icon={faGithub} className="w-4 h-4" /> GitHub
-          </a>
-        </footer>
       </div>
     </motion.div>
   );

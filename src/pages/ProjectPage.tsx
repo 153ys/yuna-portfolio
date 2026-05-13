@@ -2,6 +2,7 @@ import { motion, type Variants } from "framer-motion";
 import { useParams, useNavigate, useNavigationType } from "react-router-dom";
 import { projectsData } from "../components/projectsData";
 import BackgroundNoise from "../components/BackgroundNoise";
+import Icon from "../components/Icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -67,19 +68,13 @@ export default function ProjectPage() {
             variants={sidebarVariants}
           >
             <div className="relative bg-primary/10 p-5 rounded-2xl border-2 border-black md:sticky md:top-30 h-max flex flex-col gap-4">
-              <motion.img
-                src="./deco_boom.png"
-                alt="vector"
-                className="absolute w-12 md:w-15 h-auto right-5 -top-4 md:-top-6"
-                animate={{
-                  rotate: [0, -20, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
+              <motion.div
+                className="absolute w-12 md:w-15 right-5 -top-4 md:-top-6"
+                animate={{ rotate: [0, -20, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Icon name="deco_boom" className="w-full h-full" />
+              </motion.div>
               {/* 返回按鈕 */}
               <button
                 onClick={handleBack}
@@ -158,17 +153,17 @@ export default function ProjectPage() {
                   >
                     {info.title && (
                       <h3 className="text-2xl font-bold inline-block self-start px-2 py-1 border-b-2 border-dotted w-full">
-                        <motion.img
-                          className="inline-block w-5 h-5 mr-2"
+                        <motion.span
+                          className="inline-block w-5 h-5 mr-2 align-middle"
                           animate={{ scale: [1, 1.3, 1] }}
                           transition={{
                             duration: 2,
                             repeat: Infinity,
                             ease: "easeInOut",
                           }}
-                          src="./deco_sparkle.png"
-                          alt="deco"
-                        />
+                        >
+                          <Icon name="deco_sparkle" className="w-full h-full" />
+                        </motion.span>
                         {info.title}
                       </h3>
                     )}

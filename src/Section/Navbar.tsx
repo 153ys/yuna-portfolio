@@ -70,7 +70,7 @@ export const Navbar = () => {
                 className="relative group text-base md:text-xl font-bold inline-block"
               >
                 <span className="relative z-10">{link.name}</span>
-                <span className="absolute left-0 bottom-0 md:bottom-1 w-full h-2 md:h-5 bg-primary -z-10 scale-x-0 group-hover:scale-x-100 transition-transform origin-left delay-150 duration-500 ease-out"></span>
+                <span className="absolute left-0 bottom-0 md:bottom-1 w-full h-2 md:h-5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left delay-150 duration-500 ease-out"></span>
               </a>
             ))}
           </div>

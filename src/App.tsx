@@ -5,6 +5,8 @@ import CustomCursor from "./components/CutstomCursor";
 import { Top } from "./components/Top";
 import ProjectPage from "./pages/ProjectPage";
 import HomePage from "./pages/HomePage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export default function App() {
   const location = useLocation();
@@ -23,6 +25,16 @@ export default function App() {
           <Route path="projects/:id" element={<ProjectPage />} />
         </Routes>
       </AnimatePresence>
+      <footer className="bg-black text-white select-none font-sans font-light py-2 flex w-full justify-center gap-4">
+        <p>Portfolio by Yuna Kao © 2026</p>
+        <a
+          className="hover:text-accent transition-colors duration-300 flex items-center"
+          href="https://github.com/153ys"
+          target="_blank"
+        >
+          <FontAwesomeIcon icon={faGithub} className="w-4 h-4" /> GitHub
+        </a>
+      </footer>
     </>
   );
 }
