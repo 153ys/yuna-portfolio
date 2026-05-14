@@ -38,9 +38,10 @@ export default function Projects() {
         viewport={{ once: true, amount: 0.15 }}
         className="max-w-7xl mx-auto flex flex-col gap-6"
       >
-        {projectsData.map((project) => {
+        {projectsData.map((project, index) => {
           const coverImage = getFirstImage(project.image);
           const projectPath = `/projects/${project.id}`;
+          const isFirst = index === 0;
 
           return (
             <motion.div
@@ -58,6 +59,8 @@ export default function Projects() {
                     src={coverImage.image}
                     alt={coverImage.description ?? project.title}
                     className="w-full h-full object-cover rounded-2xl"
+                    fetchPriority={isFirst ? "high" : "auto"}
+                    loading={isFirst ? "eager" : "lazy"}
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-100 rounded-2xl flex items-center justify-center font-bold text-gray-400">

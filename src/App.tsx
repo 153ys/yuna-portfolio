@@ -1,12 +1,14 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Navbar } from "./Section/Navbar";
 import CustomCursor from "./components/CutstomCursor";
 import { Top } from "./components/Top";
-import ProjectPage from "./pages/ProjectPage";
-import HomePage from "./pages/HomePage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const ProjectPage = lazy(() => import("./pages/ProjectPage"));
 
 export default function App() {
   const location = useLocation();
@@ -16,15 +18,17 @@ export default function App() {
       <CustomCursor />
       <Navbar />
       <Top />
-      <AnimatePresence
-        mode="wait"
-        onExitComplete={() => window.scrollTo({ top: 0, behavior: "instant" })}
-      >
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="projects/:id" element={<ProjectPage />} />
-        </Routes>
-      </AnimatePresence>
+      <Suspense fallback={<div className="min-h-screen bg-bg-base" />}>
+        <AnimatePresence
+          mode="wait"
+          onExitComplete={() => window.scrollTo({ top: 0, behavior: "instant" })}
+        >
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="projects/:id" element={<ProjectPage />} />
+          </Routes>
+        </AnimatePresence>
+      </Suspense>
       <footer className="bg-black text-white select-none font-sans font-light py-2 flex w-full justify-center gap-4">
         <p>Portfolio by Yuna Kao © 2026</p>
         <a

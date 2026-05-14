@@ -161,22 +161,22 @@ export default function Skills() {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
     >
-      <div className="relative px-4 max-w-6xl mx-auto flex flex-col md:flex-row md:items-center min-h-[100px] md:min-h-[90vh]">
+      <div className="relative px-4 max-w-6xl mx-auto flex flex-col md:flex-row md:items-center min-h-25 md:min-h-[90vh]">
         {/* --- 左: 資料夾區塊 --- */}
-        <div className="scale-90 md:scale-100 relative w-full md:w-1/2 lg:w-5/12 h-[260px] sm:h-[300px] md:h-[400px] shrink-0 flex items-end justify-center z-10">
+        <div className="scale-90 md:scale-100 relative w-full md:w-1/2 lg:w-5/12 h-65 sm:h-75 md:h-100 shrink-0 flex items-end justify-center z-10">
           {/* 固定尺寸定位與縮放容器 */}
-          <div className="relative w-[290px] h-[310px] scale-[0.75] sm:scale-90 md:scale-100 origin-bottom">
+          <div className="relative w-72.5 h-77.5 scale-[0.75] sm:scale-90 md:scale-100 origin-bottom">
             {/* 資料夾 */}
             <motion.div
               variants={folderCoverVariants}
-              className="absolute bottom-0 left-0 w-full h-[190px] bg-skills-folder border-3 border-black rounded-tr-xl rounded-b-xl z-51 shadow-brutal flex flex-col items-center justify-center"
+              className="absolute bottom-0 left-0 w-full h-47.5 bg-skills-folder border-3 border-black rounded-tr-xl rounded-b-xl z-51 shadow-brutal flex flex-col items-center justify-center"
             >
               <div className="flex flex-row gap-5">
                 <Eye />
                 <Eye />
               </div>
               {/* 資料夾上方凸起標籤 */}
-              <div className="absolute top-0 -left-[2px] w-[35%] h-[24px] bg-skills-folder border-3 border-b-0 border-black rounded-t-xl -mt-[24px]"></div>
+              <div className="absolute top-0 -left-0.5 w-[35%] h-6 bg-skills-folder border-3 border-b-0 border-black rounded-t-xl -mt-6"></div>
             </motion.div>
             <AnimatePresence>
               {skillsData.map((skill, index) => {
@@ -191,7 +191,7 @@ export default function Skills() {
                     key={`inactive-${index}`}
                     onClick={() => setActiveTab(index)}
                     data-clickable="true"
-                    className="absolute bottom-6 left-10 w-[220px] h-[280px] bg-white border-2 border-black rounded-xl hover:z-40"
+                    className="absolute bottom-6 left-10 w-55 h-70 bg-white border-2 border-black rounded-xl hover:z-40"
                     style={{ zIndex: 10 + index }}
                     custom={{ rotate, x, y }}
                     variants={paperVariants}
@@ -210,8 +210,8 @@ export default function Skills() {
                     <div
                       className={`absolute top-[15%] ${
                         isLeft
-                          ? "-left-[2px] -translate-x-full rounded-l-lg border-r-0"
-                          : "-right-[2px] translate-x-full rounded-r-lg border-l-0"
+                          ? "-left-0.5 -translate-x-full rounded-l-lg border-r-0"
+                          : "-right-0.5 translate-x-full rounded-r-lg border-l-0"
                       } ${skill.bgColor} border-2 border-black px-3 py-1.5 font-bold text-sm whitespace-nowrap`}
                     >
                       {skill.title}
@@ -257,7 +257,7 @@ export default function Skills() {
               <button
                 onClick={() => setActiveTab(null)}
                 data-clickable="true"
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center p-2 bg-white border-2 border-black rounded-full shadow-brutal-sm hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-none transition-all z-10 hover:bg-black hover:text-white"
+                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center p-2 bg-white border-2 border-black rounded-full shadow-brutal-sm hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all z-10 hover:bg-black hover:text-white"
               >
                 <FontAwesomeIcon
                   icon={faXmark}

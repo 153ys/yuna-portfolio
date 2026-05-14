@@ -71,7 +71,11 @@ export default function ProjectPage() {
               <motion.div
                 className="absolute w-12 md:w-15 right-5 -top-4 md:-top-6"
                 animate={{ rotate: [0, -20, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <Icon name="deco_boom" className="w-full h-full" />
               </motion.div>
@@ -118,6 +122,7 @@ export default function ProjectPage() {
                     href={project.projectLink}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="project website link"
                   >
                     前往網站{" "}
                     <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
@@ -129,6 +134,7 @@ export default function ProjectPage() {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="github project page"
                   >
                     <FontAwesomeIcon icon={faGithub} className="w-4 h-4" />{" "}
                     GitHub
