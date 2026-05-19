@@ -5,6 +5,7 @@
   --color-secondary: #e226f1; /* 亮粉色輔助 */
   --color-accent: #bbf7d0; /* 亮綠色輔助 */
   --color-bg-base: #faf8f5; /* 微微米白的背景 */
+  --color-tertiary: #827f78; /* 灰咖色*/
 
   --color-skills-folder: #fbcfe8; /* 淡粉 */
   --color-skills-blue: #a8abff; /* 藍紫 */
@@ -18,10 +19,6 @@
   --shadow-brutal: 4px 4px 0px 0px rgba(0, 0, 0, 1);
   --shadow-brutal-sm: 2px 2px 0px 0px rgba(0, 0, 0, 1);
   --shadow-brutal-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-
-  --text-primary: #111111;
-  --text-secondary: #666666;
-  --text-tertiary: #999999;
 }
 
 @layer utilities {
@@ -39,6 +36,21 @@
 
   .hashtag {
     @apply text-xs border-2 border-black sm:text-sm font-heading shadow-brutal-sm bg-white px-3 py-1.5 rounded-full;
+  }
+
+  .dialogue {
+    @media (width > 510px) {
+      left: 20vw;
+    }
+  }
+
+  .triangle {
+    rotate: -10deg;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 10px solid black;
   }
 }
 

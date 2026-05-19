@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,
@@ -7,6 +7,9 @@ import {
   faWandMagicSparkles,
   faCircleCheck,
   faXmark,
+  faAngleDown,
+  faAngleLeft,
+  faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   motion,
@@ -14,16 +17,24 @@ import {
   type Variants,
   useInView,
 } from "framer-motion";
-
 import Eye from "../components/Eye";
+import Icon from "../components/Icon";
+
+const fanOutProps = [
+  { rotate: -18, x: -35, y: -15 },
+  { rotate: -6, x: -15, y: -50 },
+  { rotate: 6, x: 15, y: -80 },
+  { rotate: 18, x: 35, y: -10 },
+];
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
+      delay: 0.4,
       staggerChildren: 0.15,
-      delayChildren: 0.2,
+      delayChildren: 0.1,
     },
   },
 };
@@ -80,21 +91,21 @@ const skillsData = [
     bgColor: "bg-skills-blue",
     textColor: "text-skills-blue",
     tags: [
-      "Vue.js",
       "React.js",
+      "Vue.js",
       "Node.js",
-      "JavaScript",
       "TypeScript",
       "Tailwind CSS",
+      "Supabase",
       "API",
       "RWD",
     ],
     items: [
-      "框架應用：熟悉 **Vue / React**，具備 **SPA 元件化** 開發經驗",
-      "樣式切版：精通 **Tailwind CSS**，能獨立完成 **RWD 響應式** 介面",
-      "核心基礎：扎實的 **JavaScript** 邏輯，熟悉 DOM 操作與事件處理",
-      "後端串接：具備 **Node.js / Supabase** 基礎，能進行 API 串接與資料存取",
-      "版本控制：熟悉 **Git / GitHub** 多人協作與基礎部署流程",
+      "框架入門：能以 **React / Vue** 進行 **SPA 元件化** 開發，逐步建立對狀態管理與元件設計的理解",
+      "樣式切版：熟悉 **Tailwind CSS** 與 **RWD 響應式網頁**，能從設計稿轉化為精準的前端頁面，兼顧細節與使用者體驗",
+      "核心基礎：持續累積 **JavaScript  / TypeScript** 基礎，了解非同步處理與 DOM 操作的核心概念",
+      "後端接觸：初步接觸 **Node.js / Supabase**，能串接 **RESTful API** 進行資料讀寫",
+      "團隊協作：熟練使用 **Git / GitHub** 進行版本控制、分支管理與協作開發流程",
     ],
   },
   {
@@ -102,232 +113,322 @@ const skillsData = [
     icon: faPalette,
     bgColor: "bg-skills-yellow",
     textColor: "text-skills-yellow",
-    tags: ["Figma", "Wireframe", "Prototype", "UIUX", "Case Study"],
+    tags: ["Figma", "Wireframe", "Prototype", "User Flow", "Design Systems"],
     items: [
-      "原型設計：熟悉 **Wireframe / Prototype**，將抽象需求轉為具體互動",
-      "體驗優化：規劃 **User Flow** 與資訊架構，從使用者角度優化操作路徑",
-      "專案落地：具備參與 Landing Page 與 LINE LIFF 開發經驗，**能從需求到實作完整落地**",
+      "原型設計：熟練操作 **Figma** 進行 **Wireframe / Prototype** 繪製，將抽象需求具現化為可溝通的設計稿",
+      "體驗規劃：設計 **User Flow** 與資訊架構，從使用者視角優化操作路徑與互動邏輯",
+      "跨界實作：兼具設計與開發思維，有 **LINE LIFF**、**Landing Page** 開發經驗，了解從需求訪談、設計到程式實作的完整流程",
     ],
   },
   {
-    title: "AI 應用",
+    title: "AI 工具應用",
     icon: faRobot,
     bgColor: "bg-skills-green",
     textColor: "text-skills-green",
-    tags: ["ChatGPT", "Gemini", "Claude", "Midjourney", "Nano Banana"],
+    tags: ["ChatGPT", "Claude", "Gemini", "Canva AI", "Prompt Engineering"],
     items: [
-      "開發輔助：善用 AI 工具進行程式**邏輯驗證**與**除錯協助**",
-      "視覺發想：使用 **Midjourney** 進行高品質圖像生成與素材創作",
-      "工作流整合：將 AI **無縫整合**至設計與開發流程，大幅提升產出效率",
+      "開發提速：熟練以 **ChatGPT / Claude** 輔助程式碼生成、邏輯釐清與 **Code Review**，將 AI 融入開發日常，有效縮短功能交付週期",
+      "提示設計：具備 **Prompt Engineering** 實務思維，能精準描述情境與限制，穩定從 AI 工具中產出可用的程式架構與設計素材",
+      "視覺生成：運用 **Claude Design** 快速發想視覺，兼顧美感與效率，產出可實作的設計概念",
+      "知識加速：善用 AI 拆解陌生技術與框架，配合實作驗證，主動縮短學習新技術的摸索週期",
     ],
   },
   {
-    title: "平面設計",
+    title: "視覺設計",
     icon: faWandMagicSparkles,
     bgColor: "bg-skills-pink",
     textColor: "text-skills-pink",
-    tags: ["Adobe", "Visual", "Marketing"],
+    tags: [
+      "Illustrator",
+      "Photoshop",
+      "AfterEffect",
+      "Premiere",
+      "Visual Design",
+      "Branding",
+      "Social Media",
+    ],
     items: [
-      "數位行銷：擁有 4 年動靜態社群媒體與**廣告素材製作**經驗",
-      "視覺設計：精通 **Photoshop / Illustrator** 等 Adobe 核心軟體",
-      "品牌思維：具備版面規劃能力，能精準掌握並強化產品**視覺一致性**",
+      "實戰經驗：擁有 **4 年動靜態社群媒體與廣告素材** 製作經驗，熟悉從提案到交付的完整製作流程",
+      "專業軟體：熟練操作 **Photoshop / Illustrator**，能高效產出高質感的視覺設計與數位行銷素材",
+      "品牌思維：深刻理解品牌視覺規範，能精準掌握版面配置，並維持產品整體的**視覺一致性**",
     ],
   },
 ];
 
 export default function Skills() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.15 });
 
-  const [activeTab, setActiveTab] = useState<number | null>(() => {
-    if (typeof window !== "undefined" && window.innerWidth >= 768) {
-      return 0;
-    }
-    return null;
-  });
+  const [activeTab, setActiveTab] = useState<number | null>(() =>
+    window.matchMedia("(min-width: 768px)").matches ? 0 : null,
+  );
+  const [modalKey, setModalKey] = useState("active-paper");
 
-  // 文件展開的角度與位移
-  const fanOutProps = [
-    { rotate: -18, x: -35, y: -15 },
-    { rotate: -6, x: -15, y: -30 },
-    { rotate: 6, x: 15, y: -80 },
-    { rotate: 18, x: 35, y: -10 },
-  ];
+  const handlePaperClick = (index: number) => {
+    setModalKey(`active-paper-${index}`);
+    setActiveTab(index);
+  };
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const handler = (e: MediaQueryListEvent) =>
+      setActiveTab(e.matches ? 0 : null);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   return (
-    <motion.div
-      ref={containerRef}
-      variants={containerVariants}
-      initial="hidden"
-      animate={isInView ? "show" : "hidden"}
-    >
-      <div className="relative px-4 max-w-6xl mx-auto flex flex-col md:flex-row md:items-center min-h-25 md:min-h-[90vh]">
-        {/* --- 左: 資料夾區塊 --- */}
-        <div className="scale-90 md:scale-100 relative w-full md:w-1/2 lg:w-5/12 h-65 sm:h-75 md:h-100 shrink-0 flex items-end justify-center z-10">
-          {/* 固定尺寸定位與縮放容器 */}
-          <div className="relative w-72.5 h-77.5 scale-[0.75] sm:scale-90 md:scale-100 origin-bottom">
-            {/* 資料夾 */}
+    <section id="skills" className="pt-15 md:pt-20 pb-10 px-3">
+      <div className="max-w-7xl mx-auto">
+        <div className="md:text-left text-center">
+          {/* 標題 */}
+          <h2 className="relative inline-block mb-5 md:mb-0 text-4xl md:text-5xl font-heading font-black uppercase">
             <motion.div
-              variants={folderCoverVariants}
-              className="absolute bottom-0 left-0 w-full h-47.5 bg-skills-folder border-3 border-black rounded-tr-xl rounded-b-xl z-51 shadow-brutal flex flex-col items-center justify-center"
+              className="-z-1 absolute -top-6 -left-6 md:-left-12 w-12 md:w-20"
+              animate={{ y: [0, 5, 0], rotate: [0, -10, 0] }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
-              <div className="flex flex-row gap-5">
-                <Eye />
-                <Eye />
-              </div>
-              {/* 資料夾上方凸起標籤 */}
-              <div className="absolute top-0 -left-0.5 w-[35%] h-6 bg-skills-folder border-3 border-b-0 border-black rounded-t-xl -mt-6"></div>
+              <Icon name="deco_flower_3" className="w-full h-full" />
             </motion.div>
-            <AnimatePresence>
-              {skillsData.map((skill, index) => {
-                if (activeTab === index) return null;
-
-                const isLeft = index < 2;
-                const { rotate, x, y } = fanOutProps[index];
-
-                return (
-                  // Paper
+            Skills
+          </h2>
+          {/* guide */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.7, y: 10 }}
+            animate={isInView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.7, y: 10 }}
+            transition={{ type: "spring", stiffness: 350, damping: 20, delay: 0.1 }}
+            className="relative left-[10vw] -rotate-3 dialogue top-2 bg-black rounded-full w-fit px-3 py-1 md:hidden mb-10"
+          >
+            <div className="triangle absolute -bottom-2 left-10"></div>
+            <p className="font-medium text-xs text-center font-heading text-white">
+              快點擊檔案看看 Yuna 有哪些技能！
+            </p>
+          </motion.div>
+          {/* 內容 */}
+          <motion.div
+            ref={containerRef}
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+          >
+            <div className="relative px-4 max-w-6xl mx-auto flex flex-col md:flex-row md:items-center min-h-25 md:min-h-[60vh] xl:min-h-[90vh]">
+              {/* --- 左: 資料夾區塊 --- */}
+              <div className="scale-90 md:-left-10 md:scale-100 relative w-full md:w-1/2 lg:w-5/12 h-65 sm:h-75 md:h-100 shrink-0 flex items-end justify-center z-10">
+                {/* 固定尺寸定位與縮放容器 */}
+                <div className="relative w-72.5 h-77.5 scale-[0.75] sm:scale-90 md:scale-100 origin-bottom">
+                  {/* 資料夾 */}
                   <motion.div
-                    key={`inactive-${index}`}
-                    onClick={() => setActiveTab(index)}
-                    data-clickable="true"
-                    className="absolute bottom-6 left-10 w-55 h-70 bg-white border-2 border-black rounded-xl hover:z-40"
-                    style={{ zIndex: 10 + index }}
-                    custom={{ rotate, x, y }}
-                    variants={paperVariants}
-                    exit={{ opacity: 0, y: y + 30, scale: 0.9 }}
-                    whileHover={{
-                      y: y - 20,
-                      rotate: rotate * 0.8,
-                      transition: {
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 25,
-                      },
-                    }}
+                    variants={folderCoverVariants}
+                    className="absolute bottom-0 left-0 w-full h-47.5 bg-skills-folder border-3 border-black rounded-tr-xl rounded-b-xl z-51 shadow-brutal flex flex-col items-center justify-center"
                   >
-                    {/* 彩色標籤 */}
-                    <div
-                      className={`absolute top-[15%] ${
-                        isLeft
-                          ? "-left-0.5 -translate-x-full rounded-l-lg border-r-0"
-                          : "-right-0.5 translate-x-full rounded-r-lg border-l-0"
-                      } ${skill.bgColor} border-2 border-black px-3 py-1.5 font-bold text-sm whitespace-nowrap`}
-                    >
-                      {skill.title}
+                    <div className="flex flex-row gap-5">
+                      <Eye />
+                      <Eye />
                     </div>
+                    {/* 資料夾上方凸起標籤 */}
+                    <div className="absolute top-0 -left-0.5 w-[35%] h-6 bg-skills-folder border-3 border-b-0 border-black rounded-t-xl -mt-6"></div>
+                  </motion.div>
+                  <AnimatePresence>
+                    {skillsData.map((skill, index) => {
+                      if (activeTab === index) return null;
 
-                    {/* 文件內容裝飾 */}
-                    <div className="p-6 flex flex-col gap-4 opacity-20">
-                      <div className="w-1/2 h-4 bg-black rounded-full"></div>
-                      <div className="w-full h-3 bg-gray-500 rounded-full mt-4"></div>
-                      <div className="w-5/6 h-3 bg-gray-500 rounded-full"></div>
-                      <div className="w-full h-3 bg-gray-500 rounded-full"></div>
-                      <div className="w-3/4 h-3 bg-gray-500 rounded-full"></div>
+                      const isLeft = index < 2;
+                      const { rotate, x, y } = fanOutProps[index];
+
+                      return (
+                        // Paper
+                        <motion.div
+                          key={`inactive-${index}`}
+                          onClick={() => handlePaperClick(index)}
+                          data-clickable="true"
+                          className="absolute bottom-6 left-10 w-55 h-70 bg-white border-2 border-black rounded-xl hover:z-40"
+                          style={{ zIndex: 10 + index }}
+                          custom={{ rotate, x, y }}
+                          variants={paperVariants}
+                          exit={{ opacity: 0, y: y + 30, scale: 0.9 }}
+                          whileHover={{
+                            y: y - 20,
+                            rotate: rotate * 0.8,
+                            transition: {
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 25,
+                            },
+                          }}
+                        >
+                          <div className="relative">
+                            {/* 彩色標籤 */}
+                            <div
+                              className={`absolute top-[15%] ${
+                                isLeft
+                                  ? "-left-0.5 -translate-x-full rounded-l-lg border-r-0"
+                                  : "-right-0.5 translate-x-full rounded-r-lg border-l-0"
+                              } ${skill.bgColor} border-2 border-black px-3 py-1.5 font-bold text-sm whitespace-nowrap`}
+                            >
+                              {skill.title}
+                            </div>
+
+                            {/* 文件內容裝飾 */}
+                            <div className="p-6 flex flex-col gap-4 opacity-20">
+                              <div className="w-1/2 h-4 bg-black rounded-full"></div>
+                              <div className="w-full h-3 bg-gray-500 rounded-full mt-4"></div>
+                              <div className="w-5/6 h-3 bg-gray-500 rounded-full"></div>
+                              <div className="w-full h-3 bg-gray-500 rounded-full"></div>
+                              <div className="w-3/4 h-3 bg-gray-500 rounded-full"></div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* --- 右：閱讀區 --- */}
+              <AnimatePresence>
+                {activeTab !== null && (
+                  <motion.div
+                    key="mobile-overlay"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => setActiveTab(null)}
+                    className="md:hidden fixed inset-0 bg-black/60 z-51 backdrop-blur-sm"
+                  />
+                )}
+              </AnimatePresence>
+              <AnimatePresence mode="wait">
+                {activeTab !== null ? (
+                  <motion.div
+                    key={modalKey}
+                    variants={activePaperVariants}
+                    exit={{ opacity: 0, y: -50 }}
+                    className="fixed inset-x-4 md:-top-16 top-[10%] bottom-[10%] z-51 md:relative md:inset-auto md:z-20 md:h-fit h-[75vh] md:flex-1 bg-white border-2 border-black rounded-xl shadow-brutal p-6 sm:p-6 flex flex-col md:ml-8 overflow-hidden"
+                  >
+                    {/* 右上角關閉按鈕 */}
+                    <button
+                      onClick={() => setActiveTab(null)}
+                      data-clickable="true"
+                      className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center p-2 bg-white border-2 border-black rounded-full shadow-brutal-sm hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all z-10 hover:bg-black hover:text-white"
+                    >
+                      <FontAwesomeIcon
+                        icon={faXmark}
+                        className="w-10 h-10 sm:w-8 sm:h-8"
+                      />
+                    </button>
+
+                    {/* 文件內容 (淡入顯示) */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.2, delay: 0.1 }}
+                      className="flex flex-col gap-6 overflow-y-auto flex-1 pr-2 pb-2 md:pb-4"
+                    >
+                      {/* 標題與 Icon */}
+                      <div className="flex items-center gap-4 border-b-2 border-black pb-4 pr-12">
+                        <FontAwesomeIcon
+                          icon={skillsData[activeTab].icon}
+                          className={`text-2xl ${skillsData[activeTab].textColor}`}
+                        />
+                        <h3 className="text-xl sm:text-2xl font-black">
+                          {skillsData[activeTab].title}
+                        </h3>
+                      </div>
+
+                      {/* 標籤區塊 */}
+                      <div className="flex flex-wrap gap-2">
+                        {skillsData[activeTab].tags.map((tag, i) => (
+                          <span
+                            key={i}
+                            className="text-xs sm:text-sm font-heading shadow-brutal-sm bg-white border-brutal px-3 py-1.5 rounded-full"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* 內容列表 */}
+                      <ul className="flex flex-col gap-4 mt-2">
+                        {skillsData[activeTab].items.map((item, i) => (
+                          <li
+                            key={i}
+                            className="flex items-start gap-3 text-[0.95rem] sm:text-[1.05rem] text-gray-800 text-left leading-relaxed group"
+                          >
+                            <FontAwesomeIcon
+                              icon={faCircleCheck}
+                              className={`w-5 h-5 sm:w-6 sm:h-6 ${skillsData[activeTab].textColor} shrink-0 mt-1 transition-colors`}
+                            />
+                            <span>{boldText(item)}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                    {/* 底部箭頭 + Dot 導覽 - 手機專用 */}
+                    <div className="md:hidden flex items-center justify-between pt-3 shrink-0">
+                      <button
+                        onClick={() =>
+                          setActiveTab(
+                            ((activeTab ?? 0) - 1 + skillsData.length) %
+                              skillsData.length,
+                          )
+                        }
+                        data-clickable="true"
+                        className="w-9 h-9 flex items-center justify-center border-2 border-black rounded-full bg-white shadow-brutal-sm hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all"
+                      >
+                        <FontAwesomeIcon icon={faAngleLeft} />
+                      </button>
+
+                      <div className="flex gap-2.5">
+                        {skillsData.map((skill, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setActiveTab(index)}
+                            data-clickable="true"
+                            className={`w-2.5 h-2.5 rounded-full border-2 border-black transition-all ${
+                              activeTab === index ? skill.bgColor : "bg-white"
+                            }`}
+                          />
+                        ))}
+                      </div>
+
+                      <button
+                        onClick={() =>
+                          setActiveTab(
+                            ((activeTab ?? 0) + 1) % skillsData.length,
+                          )
+                        }
+                        data-clickable="true"
+                        className="w-9 h-9 flex items-center justify-center border-2 border-black rounded-full bg-white shadow-brutal-sm hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all"
+                      >
+                        <FontAwesomeIcon icon={faAngleRight} />
+                      </button>
                     </div>
                   </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* --- 右：閱讀區 --- */}
-        <AnimatePresence>
-          {activeTab !== null && (
-            <motion.div
-              key="mobile-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveTab(null)}
-              className="md:hidden fixed inset-0 bg-black/60 z-51 backdrop-blur-sm"
-            />
-          )}
-        </AnimatePresence>
-        <AnimatePresence mode="wait">
-          {activeTab !== null ? (
-            <motion.div
-              key={`active-paper-${activeTab}`}
-              variants={activePaperVariants}
-              exit={{ opacity: 0, y: -50 }}
-              className="fixed inset-x-4 md:-top-16 top-[10%] bottom-[10%] z-51 md:relative md:inset-auto md:z-20 h-[80vh] md:flex-1 bg-white border-2 border-black rounded-xl shadow-brutal p-6 sm:p-6 flex flex-col md:ml-8 overflow-hidden"
-            >
-              {/* 右上角關閉按鈕 */}
-              <button
-                onClick={() => setActiveTab(null)}
-                data-clickable="true"
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center p-2 bg-white border-2 border-black rounded-full shadow-brutal-sm hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all z-10 hover:bg-black hover:text-white"
-              >
-                <FontAwesomeIcon
-                  icon={faXmark}
-                  className="w-10 h-10 sm:w-8 sm:h-8"
-                />
-              </button>
-
-              {/* 文件內容 (淡入顯示) */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2, delay: 0.1 }}
-                className="flex flex-col gap-6 overflow-y-auto h-full pr-2"
-              >
-                {/* 標題與 Icon */}
-                <div className="flex items-center gap-4 border-b-2 border-black pb-4 pr-12">
-                  {(() => {
-                    return (
-                      <FontAwesomeIcon
-                        icon={skillsData[activeTab].icon}
-                        className={`text-2xl ${skillsData[activeTab].textColor}`}
-                      />
-                    );
-                  })()}
-                  <h3 className="text-xl sm:text-2xl font-black">
-                    {skillsData[activeTab].title}
-                  </h3>
-                </div>
-
-                {/* 標籤區塊 */}
-                <div className="flex flex-wrap gap-2">
-                  {skillsData[activeTab].tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="text-xs sm:text-sm font-heading shadow-brutal-sm bg-white border-brutal px-3 py-1.5 rounded-full"
-                    >
-                      #{tag}
+                ) : (
+                  <motion.div
+                    key="placeholder"
+                    variants={activePaperVariants}
+                    exit={{ opacity: 0, transition: { duration: 0.1 } }}
+                    className="text-xl font-medium gap-5 hidden md:flex flex-1 flex-row items-center justify-center opacity-40 md:ml-8"
+                  >
+                    <FontAwesomeIcon
+                      icon={faAngleDown}
+                      className="text-4xl text-tertiary animate-bounce rotate-90"
+                    />{" "}
+                    <span className="text-tertiary">
+                      點擊左邊的檔案看看 Yuna 有哪些技能！
                     </span>
-                  ))}
-                </div>
-
-                {/* 內容列表 */}
-                <ul className="flex flex-col gap-4 mt-2">
-                  {skillsData[activeTab].items.map((item, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-3 text-[0.95rem] sm:text-[1.05rem] text-gray-800 leading-relaxed group"
-                    >
-                      <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        className={`w-5 h-5 sm:w-6 sm:h-6 ${skillsData[activeTab].textColor} shrink-0 mt-0.5 transition-colors`}
-                      />
-                      <span>{boldText(item)}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="placeholder"
-              variants={activePaperVariants}
-              exit={{ opacity: 0, transition: { duration: 0.1 } }}
-              className="hidden md:flex flex-1 items-center justify-center flex-col opacity-40 md:ml-8"
-            >
-              {/* TODO: 之後要放指引文字 */}
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </section>
   );
 }
