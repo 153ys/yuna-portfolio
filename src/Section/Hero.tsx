@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "../components/Button";
+import { Tooltip } from "../components/Tooltip";
 import Icon from "../components/Icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -84,40 +85,48 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
-            <Button
-              variant="accent"
-              className="w-full sm:w-auto"
-              onClick={() =>
-                document.getElementById("projects")?.scrollIntoView()
-              }
-            >
-              View Projects{" "}
-              <FontAwesomeIcon icon={faArrowDown} className="w-5 h-5" />
-            </Button>
-            <Button
-              variant="secondary"
-              className="w-full sm:w-auto"
-              href="https://github.com/153ys"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faGithub} className="w-5 h-5" /> GitHub
-            </Button>
-            <Button
-              variant="secondary"
-              className="w-full sm:w-auto"
-              href="https://medium.com/@153yuna"
-              target="_blank"
-            >
-              Medium
-            </Button>
-            <Button
-              variant="secondary"
-              className="w-full sm:w-auto"
-              href="https://yunakao.myportfolio.com/"
-              target="_blank"
-            >
-              Graphic Design
-            </Button>
+            <Tooltip info="查看我的作品集">
+              <Button
+                variant="accent"
+                className="w-full sm:w-auto"
+                onClick={() =>
+                  document.getElementById("projects")?.scrollIntoView()
+                }
+              >
+                View Projects{" "}
+                <FontAwesomeIcon icon={faArrowDown} className="w-5 h-5" />
+              </Button>
+            </Tooltip>
+            <Tooltip info="前往 GitHub 查看原始碼">
+              <Button
+                variant="secondary"
+                className="w-full sm:w-auto"
+                href="https://github.com/153ys"
+                target="_blank"
+              >
+                <FontAwesomeIcon icon={faGithub} className="w-5 h-5" /> GitHub
+              </Button>
+            </Tooltip>
+            <Tooltip info="閱讀我的技術文章">
+              <Button
+                variant="secondary"
+                className="w-full sm:w-auto"
+                href="https://medium.com/@153yuna"
+                target="_blank"
+              >
+                Medium
+              </Button>
+            </Tooltip>
+            <Tooltip info="查看平面設計作品">
+              <Button
+                variant="secondary"
+                className="w-full sm:w-auto"
+                href="https://yunakao.myportfolio.com/"
+                target="_blank"
+              >
+                Graphic Design
+              </Button>
+            </Tooltip>
           </div>
         </motion.div>
       </div>
