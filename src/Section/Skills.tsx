@@ -182,7 +182,7 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto">
         <div className="md:text-left text-center">
           {/* 標題 */}
-          <h2 className="relative inline-block mb-5 md:mb-0 text-4xl md:text-5xl font-heading font-black uppercase">
+          <h2 className="md:ml-15 relative inline-block mb-5 md:mb-0 text-4xl md:text-5xl font-heading font-black uppercase">
             <motion.div
               className="-z-1 absolute -top-6 -left-6 md:-left-12 w-12 md:w-20"
               animate={{ y: [0, 5, 0], rotate: [0, -10, 0] }}
@@ -199,8 +199,17 @@ export default function Skills() {
           {/* guide */}
           <motion.div
             initial={{ opacity: 0, scale: 0.7, y: 10 }}
-            animate={isInView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.7, y: 10 }}
-            transition={{ type: "spring", stiffness: 350, damping: 20, delay: 0.1 }}
+            animate={
+              isInView
+                ? { opacity: 1, scale: 1, y: 0 }
+                : { opacity: 0, scale: 0.7, y: 10 }
+            }
+            transition={{
+              type: "spring",
+              stiffness: 350,
+              damping: 20,
+              delay: 0.1,
+            }}
             className="relative left-[10vw] -rotate-3 dialogue top-2 bg-black rounded-full w-fit px-3 py-1 md:hidden mb-10"
           >
             <div className="triangle absolute -bottom-2 left-10"></div>
@@ -311,6 +320,7 @@ export default function Skills() {
                   >
                     {/* 右上角關閉按鈕 */}
                     <button
+                      aria-label="關閉清單"
                       onClick={() => setActiveTab(null)}
                       data-clickable="true"
                       className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center p-2 bg-white border-2 border-black rounded-full shadow-brutal-sm hover:translate-y-0.5 hover:translate-x-0.5 hover:shadow-none transition-all z-10 hover:bg-black hover:text-white"
