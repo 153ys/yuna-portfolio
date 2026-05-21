@@ -8,9 +8,8 @@ import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 export const Hero = () => {
   return (
-    <section className="min-h-[85vh] pt-32 pb-20 px-6 flex flex-col justify-center items-center max-w-7xl mx-auto">
+    <section className="min-h-[85vh] sm:pt-32 pt-40 pb-20 px-6 flex flex-col justify-center items-center max-w-7xl mx-auto">
       <div className="relative items-center w-full max-w-fit">
-        {/* deco animation */}
         <motion.div
           className="-z-4 absolute -bottom-10 -left-6 md:-left-30 w-12 md:w-20"
           animate={{ y: [0, 5, 0], rotate: [0, -10, 0] }}
@@ -49,7 +48,7 @@ export const Hero = () => {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute -top-12 shadow-brutal-sm -left-20 inline-block bg-primary border-brutal px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider transform -rotate-5"
+              className="absolute -top-12 shadow-brutal-sm sm:-left-20 -left-8 inline-block bg-primary border-brutal px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider transform -rotate-5"
             >
               UI/UX & Frontend
             </motion.div>
@@ -84,8 +83,8 @@ export const Hero = () => {
             從設計出發，打造兼具體驗與效能的前端產品
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
-            <Tooltip info="查看我的作品集">
+          <div className="flex flex-col sm:flex-row gap-4 mt-4 max-w-[70vw] w-full text-center sm:w-auto">
+            <Tooltip info="我的作品">
               <Button
                 variant="accent"
                 className="w-full sm:w-auto"
@@ -93,7 +92,7 @@ export const Hero = () => {
                   document.getElementById("projects")?.scrollIntoView()
                 }
               >
-                View Projects{" "}
+                Projects{" "}
                 <FontAwesomeIcon icon={faArrowDown} className="w-5 h-5" />
               </Button>
             </Tooltip>
@@ -104,10 +103,11 @@ export const Hero = () => {
                 href="https://github.com/153ys"
                 target="_blank"
               >
-                <FontAwesomeIcon icon={faGithub} className="w-5 h-5" /> GitHub
+                <FontAwesomeIcon icon={faGithub} className="w-5 h-5" />
+                GitHub
               </Button>
             </Tooltip>
-            <Tooltip info="閱讀我的技術文章">
+            <Tooltip info="我的技術文章">
               <Button
                 variant="secondary"
                 className="w-full sm:w-auto"
@@ -117,14 +117,14 @@ export const Hero = () => {
                 Medium
               </Button>
             </Tooltip>
-            <Tooltip info="查看平面設計作品">
+            <Tooltip info="我過去的設計作品">
               <Button
                 variant="secondary"
                 className="w-full sm:w-auto"
                 href="https://yunakao.myportfolio.com/"
                 target="_blank"
               >
-                Graphic Design
+                平面設計
               </Button>
             </Tooltip>
           </div>
