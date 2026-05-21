@@ -6,7 +6,6 @@ import Skills from "../Section/Skills";
 import BackgroundNoise from "../components/BackgroundNoise";
 import { Marquee } from "../components/Marquee";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Icon from "../components/Icon";
 
 export default function HomePage() {
   const location = useLocation();
@@ -54,31 +53,7 @@ export default function HomePage() {
           <Hero />
           <Marquee />
           <Skills />
-
-          <section
-            id="projects"
-            className="min-h-screen py-20 px-3 divider-dotline"
-          >
-            <div className="max-w-7xl mx-auto">
-              <div className="md:text-left text-center mb-12">
-                <h2 className="relative inline-block text-4xl md:text-5xl font-heading font-black uppercase">
-                  <motion.div
-                    className="opacity-60 -z-4 absolute -top-6 -left-6 md:-left-12 w-12 md:w-20"
-                    animate={{ y: [0, 5, 0], rotate: [0, -10, 0] }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <Icon name="deco_flower_2" className="w-full h-full" />
-                  </motion.div>
-                  Projects
-                </h2>
-              </div>
-              <Projects />
-            </div>
-          </section>
+          <Projects />
         </main>
       </div>
     </motion.div>
