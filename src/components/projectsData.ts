@@ -1,3 +1,5 @@
+import type { DecisionCard } from "./DecisionCards";
+
 export type Project = {
   id: string;
   title: string;
@@ -11,6 +13,7 @@ export type Project = {
 };
 
 export type InfoSection = {
+  type?: "default" | "decisionCards";
   title?: string;
   subTitle?: string;
   content?: string;
@@ -19,6 +22,7 @@ export type InfoSection = {
   description?: string;
   figmaLink?: string;
   tech?: string[];
+  decisionCards?: DecisionCard[];
 };
 
 export type Image = {
@@ -32,7 +36,7 @@ export const projectsData: Project[] = [
     title: "PetPetNi",
     time: "2025/11~2026/1",
     tags: ["UI/UX", "Frontend", "Backend", "RWD"],
-    info: "PetPetNi 是以寵物為核心的社群平台，整合了社群貼文、即時聊天、活動揪團、配對功能及 AI 助手，串聯線上社群互動與線下生活情境，打造高黏著度的寵物社交生態圈。",
+    info: "PetPetNi 是以寵物為核心的社群平台，整合了社群貼文、即時聊天、活動揪團、配對功能及 AI 助手，串聯線上社群互動與線下生活情境，打造高黏著度的寵物社交生態圈。[br]我主要負責社群頁體驗規劃與前端開發，將使用者需求轉化為可落地的 Web 產品介面。",
     image: [
       {
         image:
@@ -57,26 +61,40 @@ export const projectsData: Project[] = [
         ],
       },
       {
-        title: "我的角色",
-        subTitle: "視覺規劃、訂定全域樣式規範",
+        title: "專案背景",
         content:
-          "使用 Tailwind css 訂定專案設計規範，包含顏色、字體、間距等，讓視覺更有一致性",
+          "許多飼主會在 Instagram 或 Facebook 分享寵物生活，但很容易被其他動態淹沒，傳統的社群也沒有專為寵物交流設計的互動功能。因此 PetPetNi 希望打造一個以寵物為核心的社群平台，讓分享、交流與配對都能在同一個產品中完成。",
       },
       {
-        subTitle: "社群頁核心功能開發",
+        title: "我的角色",
         list: [
           [
-            "管理社群頁資料庫，串接後端 API 與資料狀態管理",
-            "拆分貼文卡片、等可重用元件及邏輯，提升程式碼品質與可維護性",
+            "規劃社群頁資訊架構與互動順序",
+            "使用 Tailwind CSS 建立全域樣式規範，維持視覺一致性",
+            "拆分貼文卡片、留言區、互動按鈕等可重用元件",
+            "串接貼文、圖片上傳、留言、按讚、收藏、等後端 API",
             "實作響應式設計，確保手機與桌機一致性，並符合手機版面操作習慣",
           ],
         ],
       },
       {
-        title: "開發過程",
-        subTitle: "繪製 Wireframe",
+        title: "設計流程",
+        subTitle: "需求分析",
+        content: "社群頁需要同時解決：",
+        list: [
+          [
+            "快速瀏覽大量貼文",
+            "降低互動成本",
+            "兼顧手機與桌機體驗",
+            "維持 UI 一致性",
+            "讓後續功能容易擴充",
+          ],
+        ],
+      },
+      {
+        subTitle: "Wireframe：確認資訊架構",
         content:
-          "以 Miro 繪製簡易畫面確認版位、資訊層級與互動順序，避免一開始就花太多時間在視覺細節。",
+          "先確認貼文列表、發文入口、留言區與互動按鈕的位置，再進入 UI 設計。",
         image: [
           {
             image:
@@ -93,35 +111,65 @@ export const projectsData: Project[] = [
         ],
       },
       {
-        title: "技術亮點",
-        subTitle: "瀑布流布局 (Masonry layout)",
-        content:
-          "考慮到使用者可能會只發布圖片或文字，進而造成貼文內容高度不一致的問題，因此將貼文卡片高度設定為適應貼文內容而不是固定高度，平板以上裝置貼文列表會以雙欄式瀑布流方式排列，手機則是以單欄瀑布流呈現。",
-      },
-      {
-        subTitle: "骨架屏載入效果 (Skeleton Screen)",
-        content:
-          "在貼文內容尚在載入時，以與實際內容結構相似的灰色佔位區塊搭配微弱的流動動畫呈現。比起傳統的旋轉圖示動畫，選擇骨架式動畫是因為以下優點：",
-        list: [
-          [
-            "降低預期等待時間：因為預先展示了頁面的大致結構，讓使用者感覺內容「即將出現」減少等待感。",
-            "減少視覺跳動：當內容載入後，灰色區塊會被文字/圖像取代，避免頁面布局大幅閃動。",
-            "視覺引導：引導使用者的視覺焦使他們知道應該閱讀哪個區塊。",
-          ],
+        title: "設計決策",
+        type: "decisionCards",
+        decisionCards: [
+          {
+            label: "瀑布流",
+            title: "瀑布流布局 (Masonry Layout)",
+            image: "",
+            problem:
+              "社群貼文可能包含純文字、單張圖片、多張圖片或圖文混合內容，若採固定卡片高度，容易產生大量留白，也會降低資訊密度。",
+            solution:
+              "平板以上裝置使用雙欄式瀑布流布局，讓不同高度的貼文能自然排列；手機版則維持單欄瀏覽，降低閱讀與操作負擔。",
+            impact:
+              "提升資訊密度，減少滑動距離，讓使用者更容易瀏覽不同類型的貼文內容。",
+          },
+          {
+            label: "骨架屏",
+            title: "骨架屏 (Skeleton Screen)",
+            image: "",
+            problem:
+              "貼文資料載入時，若只顯示空白或旋轉圖示，使用者較難判斷頁面是否正常載入，也容易產生等待焦慮。",
+            solution:
+              "使用骨架屏呈現貼文卡片的大致結構，讓使用者在等待資料時能預期接下來會出現的內容。",
+            impact:
+              "降低等待焦慮，減少資料載入後的畫面跳動，提升整體瀏覽體驗的穩定感。",
+          },
+          {
+            label: "RWD",
+            title: "RWD 行動裝置體驗",
+            image: "",
+            problem:
+              "社群頁在手機情境下更常被使用，但手機螢幕空間有限，若直接縮小桌機版面，容易造成閱讀與操作負擔。",
+            solution:
+              "手機版改為單欄貼文瀏覽，並針對留言區、Overlay、按鈕間距與可點擊範圍進行調整，讓使用者能用單手完成主要操作。",
+            impact:
+              "降低手機操作負擔，讓瀏覽、留言與互動流程更符合行動裝置使用情境。",
+          },
+          {
+            label: "前端狀態",
+            title: "即時互動回饋",
+            image: "",
+            problem:
+              "按讚、收藏與留言數若沒有即時同步，使用者會不確定操作是否成功，降低互動信心。",
+            solution:
+              "透過 Pinia 集中管理社群頁狀態，讓貼文互動後能立即更新畫面，並同步留言數與 Action Bar 狀態。",
+            impact:
+              "讓互動結果即時呈現在畫面上，提高操作回饋的可信度，也讓使用者更願意持續互動。",
+          },
         ],
       },
       {
-        subTitle: "圖片壓縮上傳功能",
+        title: "收穫與反思",
         content:
-          "使用 browser-image-compression 套件壓縮圖片大小，將壓縮後的圖片上傳至 Cloudinary 託管並回傳連結。",
-      },
-      {
-        title: "心得與反思",
+          "這次專案讓我最大的收穫，不只是完成一個社群產品，而是開始建立從需求、體驗到實作的完整思考方式：",
         list: [
           [
-            "做功能前先釐清資料流、狀態，會讓後續開發更順利，也能發現一些自己沒注意到的流程小問題。",
+            "從 Wireframe 開始驗證資訊架構與互動流程，讓我理解比起直接設計 UI，更重要的是先確認使用者操作是否合理。",
+            "第一次完整參與前端開發，讓我開始理解元件拆分、資料流與技術限制，也讓我在設計時能同步思考方案是否容易實作，而不是只追求視覺呈現。",
+            "未來如果有更多時間，希望能加入使用者測試與數據驗證，確認設計是否真正改善使用者體驗，而不只是依據團隊討論或設計直覺做決策。",
           ],
-          ["UX 的重點不在於畫得多漂亮，而是流程是否合理"],
         ],
       },
     ],
@@ -136,18 +184,18 @@ export const projectsData: Project[] = [
     image: [
       {
         image:
-          "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto/f_auto/v1776674726/match_result_ijh3ig.webp",
+          "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,fl_no_cookies/v1776674726/match_result_ijh3ig.webp",
       },
     ],
     projectInfo: [
       {
         title: "問題定義",
         content:
-          "為降低使用者搜尋成本，採用每日一次的抽卡機制，並根據地區與寵物標籤進行自動媒合，呈現配對對象與配對指數。然而，此機制在提升趣味性的同時，也產生以下體驗問題：",
+          "為降低使用者搜尋成本，採用每日一次的抽卡機制，並根據註冊時輸入的所在地區與寵物個性標籤進行自動媒合，最終呈現配對對象與配對指數。然而透過抽卡提升趣味性的同時，也產生以下體驗問題：",
         list: [
           [
             "使用者缺乏主動選擇權，配對過程較為被動",
-            "配對結果的判斷依據（如雷達圖）不易理解，影響信任感",
+            "配對結果的判斷依據（雷達圖）不易理解，影響信任感",
             "即使成功配對，仍缺乏有效引導，導致互動啟動率偏低",
           ],
         ],
@@ -227,4 +275,76 @@ export const projectsData: Project[] = [
       },
     ],
   },
+  // {
+  //   id: "portfolio",
+  //   title: "個人網站",
+  //   time: "2026/03~",
+  //   tags: ["UI/UX", "Frontend", "RWD"],
+  //   image: [
+  //     {
+  //       image:
+  //         "https://res.cloudinary.com/dsxurz7zb/image/upload/fl_no_cookies/v1779349429/portfolio_cover_xgqzxu.webp",
+  //     },
+  //   ],
+  //   info: "自主規劃與開發的個人作品集網站，從資訊架構、視覺風格到前端實作皆獨立完成。以 Neobrutalism 為核心視覺，結合 Framer Motion 動態效果，打造兼具個人特色與流暢體驗的互動式作品展示平台。",
+  //   github: "https://github.com/153ys/yuna-portfolio",
+  //   projectInfo: [
+  //     {
+  //       title: "技術棧",
+  //       tech: [
+  //         "React",
+  //         "React Router",
+  //         "TypeScript",
+  //         "Tailwind CSS",
+  //         "Vite",
+  //         "Framer Motion",
+  //         "Font Awesome",
+  //       ],
+  //     },
+  //     {
+  //       title: "設計風格",
+  //       content:
+  //         "採用 Neobrutalism 風格，以粗邊框、高對比色彩與錯位陰影打造鮮明視覺層次，搭配細膩的動態效果，在個性化與可讀性之間取得平衡。",
+  //     },
+  //     {
+  //       title: "設計思考",
+  //       list: [
+  //         [
+  //           "以主流框架 React 搭配 TypeScript 作為技術選型，並使用 Framer motion 動畫，藉由建立個人作品集網站的同時建立熟悉工具的應用方式。",
+  //           "在規劃作品集時，優先考量瀏覽動線與資訊層級，希望面試官能快速理解專案重點，因此將首頁聚焦於角色定位與代表作品，並以動態效果輔助視覺節奏，而非過度裝飾。",
+  //         ],
+  //       ],
+  //     },
+  //     {
+  //       title: "技術亮點",
+  //       subTitle: "路由切換動畫（AnimatePresence）",
+  //       content:
+  //         "最初打算將專案詳情以展開區塊呈現在首頁，但實作後發現閱讀空間過小、資訊密度太高，體驗不佳。因此改為獨立分頁，並引入 React Router DOM 管理路由。有了路由後，進一步以 AnimatePresence 搭配 pathname 作為 key，為頁面切換加入進出場動畫，確保轉場流暢不閃爍。",
+  //     },
+  //     {
+  //       subTitle: "效能優化（FCP／LCP）",
+  //       content:
+  //         "加入 preconnect 預連線字型與圖片 CDN，並以動態 import 搭配 React.lazy 進行路由層級的程式碼分割，降低首屏載入成本。經 Lighthouse 測試後，Performance 分數提升至 90+，並針對手機裝置調整動畫與排版密度，提升行動端瀏覽體驗。",
+  //     },
+  //     {
+  //       subTitle: "自訂游標",
+  //       content: "",
+  //     },
+  //     {
+  //       subTitle: "SVG Icon 元件化",
+  //       content:
+  //         "裝飾圖示最初以 PNG 直接引入，跑 Lighthouse 後才發現每個圖示都產生一次額外的 HTTP 請求，加上縮放動畫讓 PNG 的畫質問題更明顯。改以 SVG 元件封裝後，圖示 inline 渲染不再產生額外請求、縮放不失真，顏色也可直接繼承 CSS 主題色彩。",
+  //     },
+  //     {
+  //       title: "心得與反思",
+  //       list: [
+  //         [
+  //           "在學習 React 時一直不是很了解 State 跟 Hook 的運作，。", //todo
+  //           "過去較偏向視覺設計思維，但在實作過程中逐漸理解，過度複雜的動畫與設計可能增加維護成本，因此開始學習在品牌風格、效能與開發成本之間取得平衡。",
+  //           "透過 FCP／LCP 優化過程，更系統地了解瀏覽器資源載入機制，也養成在開發初期就考量效能的習慣。",
+  //         ],
+  //       ],
+  //     },
+  //   ],
+  // },
 ];

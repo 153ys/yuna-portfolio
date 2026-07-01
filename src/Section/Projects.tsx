@@ -6,6 +6,7 @@ import Icon from "../components/Icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { renderTextWithLineBreaks } from "../utils/renderTextWithLineBreaks";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -109,7 +110,7 @@ export default function Projects() {
                       ))}
                     </div>
                     <div className="h-full flex flex-col justify-between">
-                      <p>{boldText(project.info)}</p>
+                      <p>{renderTextWithLineBreaks(project.info, boldText)}</p>
                       <div className="md:text-sm text-xs md:mt-0 mt-5 flex gap-3 self-end">
                         {project.github && (
                           <Button

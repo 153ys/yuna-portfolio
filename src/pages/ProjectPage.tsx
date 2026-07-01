@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Button } from "../components/Button";
+import DesignDecisionCards from "../components/DecisionCards";
+import { renderTextWithLineBreaks } from "../utils/renderTextWithLineBreaks";
 
 const pageVariants: Variants = {
   hidden: {},
@@ -112,7 +114,9 @@ export default function ProjectPage() {
               </div>
               {/* 簡介 */}
               {project.info && (
-                <p className="text-sm leading-relaxed">{project.info}</p>
+                <p className="text-sm leading-relaxed">
+                  {renderTextWithLineBreaks(project.info)}
+                </p>
               )}
               {/* 操作按鈕 */}
               <div className="flex flex-wrap gap-2 w-fit mt-5">
@@ -147,7 +151,7 @@ export default function ProjectPage() {
           {/* 內容區 */}
           <div className="flex-1 flex flex-col gap-5 text-md leading-relaxed">
             {project.projectInfo && project.projectInfo.length > 0 && (
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-4">
                 {project.projectInfo.map((info, idx) => (
                   <motion.div
                     key={idx}
@@ -182,7 +186,12 @@ export default function ProjectPage() {
                       </div>
                     )}
                     {info.content && (
-                      <p className="leading-relaxed">{info.content}</p>
+                      <p className="leading-relaxed">
+                        {renderTextWithLineBreaks(info.content)}
+                      </p>
+                    )}
+                    {info.type === "decisionCards" && info.decisionCards && (
+                      <DesignDecisionCards cards={info.decisionCards} />
                     )}
                     {info.list?.map((group, gi) => (
                       <ul
