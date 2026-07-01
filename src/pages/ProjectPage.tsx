@@ -1,4 +1,5 @@
 import { motion, type Variants } from "framer-motion";
+import { useState } from "react";
 import { useParams, useNavigate, useNavigationType } from "react-router-dom";
 import { projectsData } from "../components/projectsData";
 import BackgroundNoise from "../components/BackgroundNoise";
@@ -9,6 +10,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Button } from "../components/Button";
 import DesignDecisionCards from "../components/DecisionCards";
 import { renderTextWithLineBreaks } from "../utils/renderTextWithLineBreaks";
+import ImagePreviewModal from "../components/ImagePreviewModal";
 
 const pageVariants: Variants = {
   hidden: {},
@@ -24,6 +26,11 @@ export default function ProjectPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const navigationType = useNavigationType();
+  const [previewImage, setPreviewImage] = useState<{
+    src: string;
+    alt: string;
+    description?: string;
+  } | null>(null);
   const project = projectsData.find((p) => p.id === id);
 
   const handleBack = () => {
@@ -219,17 +226,34 @@ export default function ProjectPage() {
                       <div className="mx-4 rounded-xl flex flex-col gap-4 shadow-md">
                         {info.image
                           .filter((img) => img.image.trim() !== "")
-                          .map((img, i) => (
-                            <img
-                              key={i}
-                              src={img.image}
-                              alt={
-                                img.description ??
-                                `${info.title ?? "project image"}-${i}`
-                              }
-                              className="w-full h-auto object-cover rounded-xl"
-                            />
-                          ))}
+                          .map((img, i) => {
+                            const imageAlt =
+                              img.description ??
+                              `${info.title ?? "project image"}-${i}`;
+
+                            return (
+                              <button
+                                key={i}
+                                type="button"
+                                className="group overflow-hidden rounded-xl text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary/60"
+                                aria-label={`預覽圖片：${imageAlt}`}
+                                onClick={() =>
+                                  setPreviewImage({
+                                    src: img.image,
+                                    alt: imageAlt,
+                                    description:
+                                      img.description ?? info.description,
+                                  })
+                                }
+                              >
+                                <img
+                                  src={img.image}
+                                  alt={imageAlt}
+                                  className="w-full h-auto object-cover rounded-xl transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95"
+                                />
+                              </button>
+                            );
+                          })}
                       </div>
                     )}
                     {info.figmaLink && (
@@ -300,6 +324,10 @@ export default function ProjectPage() {
           )}
         </div>
       </div>
+      <ImagePreviewModal
+        image={previewImage}
+        onClose={() => setPreviewImage(null)}
+      />
     </motion.div>
   );
 }
