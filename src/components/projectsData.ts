@@ -40,7 +40,7 @@ export const projectsData: Project[] = [
     image: [
       {
         image:
-          "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto/f_auto/v1776672166/PetPetNi_ni7orj.webp",
+          "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,/v1776672166/PetPetNi_ni7orj.webp",
       },
     ],
     github: "https://github.com/153ys/PetPetNi",
@@ -184,7 +184,7 @@ export const projectsData: Project[] = [
     image: [
       {
         image:
-          "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,fl_no_cookies/v1776674726/match_result_ijh3ig.webp",
+          "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1200/v1776674726/match_result_ijh3ig.webp",
       },
     ],
     projectInfo: [
@@ -249,7 +249,7 @@ export const projectsData: Project[] = [
         image: [
           {
             image:
-              "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto/f_auto/v1776666078/before_flowchart_mcwrme.webp",
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1000/v1776666078/before_flowchart_mcwrme.webp",
           },
         ],
         description: "以 Miro 繪製 flowchart",
@@ -259,7 +259,7 @@ export const projectsData: Project[] = [
         image: [
           {
             image:
-              "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto/f_auto/v1776666310/after_flow-chart_bx6qhn.webp",
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1000/v1776666310/after_flow-chart_bx6qhn.webp",
           },
         ],
       },
@@ -269,7 +269,7 @@ export const projectsData: Project[] = [
         image: [
           {
             image:
-              "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto/f_auto/v1776674726/match_result_ijh3ig.webp",
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1200/v1776674726/match_result_ijh3ig.webp",
           },
         ],
       },

@@ -249,6 +249,7 @@ export default function ProjectPage() {
                                 <img
                                   src={img.image}
                                   alt={imageAlt}
+                                  crossOrigin="anonymous"
                                   className="w-full h-auto object-cover rounded-xl transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95"
                                 />
                               </button>

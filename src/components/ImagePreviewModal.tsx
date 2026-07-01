@@ -71,6 +71,7 @@ export default function ImagePreviewModal({
               <img
                 src={image.src}
                 alt={image.alt}
+                crossOrigin="anonymous"
                 className="max-h-[82vh] w-auto max-w-full rounded-xl border-2 border-black bg-white object-contain"
               />
               {image.description && (

@@ -93,6 +93,7 @@ export default function Projects() {
                         className="w-full h-full object-cover rounded-2xl"
                         fetchPriority={isFirst ? "high" : "auto"}
                         loading={isFirst ? "eager" : "lazy"}
+                        crossOrigin="anonymous"
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-100 rounded-2xl flex items-center justify-center font-bold text-gray-400">
