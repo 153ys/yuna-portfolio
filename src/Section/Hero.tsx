@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { Button } from "../components/Button";
 import { Tooltip } from "../components/Tooltip";
 import Icon from "../components/Icon";
+import GithubIcon from "../components/GithubIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 export const Hero = () => {
@@ -103,7 +103,7 @@ export const Hero = () => {
                 href="https://github.com/153ys"
                 target="_blank"
               >
-                <FontAwesomeIcon icon={faGithub} className="w-5 h-5" />
+                <GithubIcon className="w-5 h-5" />
                 GitHub
               </Button>
             </Tooltip>

@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { projectsData, type Project } from "../components/projectsData";
 import Icon from "../components/Icon";
+import GithubIcon from "../components/GithubIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { renderTextWithLineBreaks } from "../utils/renderTextWithLineBreaks";
 
 const containerVariants: Variants = {
@@ -121,10 +121,7 @@ export default function Projects() {
                             rel="noopener noreferrer"
                             aria-label="github"
                           >
-                            <FontAwesomeIcon
-                              icon={faGithub}
-                              className="w-5 h-5"
-                            />
+                            <GithubIcon className="w-5 h-5" />
                           </Button>
                         )}
                         {project.projectLink && (

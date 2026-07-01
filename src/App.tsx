@@ -4,8 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import { Navbar } from "./Section/Navbar";
 import CustomCursor from "./components/CutstomCursor";
 import { Top } from "./components/Top";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import GithubIcon from "./components/GithubIcon";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const ProjectPage = lazy(() => import("./pages/ProjectPage"));
@@ -36,7 +35,7 @@ export default function App() {
           href="https://github.com/153ys"
           target="_blank"
         >
-          <FontAwesomeIcon icon={faGithub} className="w-4 h-4" /> GitHub
+          <GithubIcon className="w-4 h-4" /> GitHub
         </a>
       </footer>
     </>

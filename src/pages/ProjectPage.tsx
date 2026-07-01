@@ -4,9 +4,9 @@ import { useParams, useNavigate, useNavigationType } from "react-router-dom";
 import { projectsData } from "../components/projectsData";
 import BackgroundNoise from "../components/BackgroundNoise";
 import Icon from "../components/Icon";
+import GithubIcon from "../components/GithubIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Button } from "../components/Button";
 import DesignDecisionCards from "../components/DecisionCards";
 import { renderTextWithLineBreaks } from "../utils/renderTextWithLineBreaks";
@@ -147,8 +147,7 @@ export default function ProjectPage() {
                     rel="noopener noreferrer"
                     aria-label="github project page"
                   >
-                    <FontAwesomeIcon icon={faGithub} className="w-4 h-4" />{" "}
-                    GitHub
+                    <GithubIcon className="w-4 h-4" /> GitHub
                   </Button>
                 )}
               </div>
