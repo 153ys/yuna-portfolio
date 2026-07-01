@@ -19,7 +19,6 @@ export type InfoSection = {
   content?: string;
   list?: string[][];
   image?: Image[];
-  description?: string;
   figmaLink?: string;
   tech?: string[];
   decisionCards?: DecisionCard[];
@@ -99,6 +98,7 @@ export const projectsData: Project[] = [
           {
             image:
               "https://res.cloudinary.com/dsxurz7zb/image/upload/v1776593214/social_view_yzskql.webp",
+            description: "社群頁面初步規劃",
           },
         ],
       },
@@ -107,6 +107,7 @@ export const projectsData: Project[] = [
           {
             image:
               "https://res.cloudinary.com/dsxurz7zb/image/upload/v1776593165/comment_view_ir15lj.webp",
+            description: "留言畫面初步規劃",
           },
         ],
       },
@@ -250,9 +251,9 @@ export const projectsData: Project[] = [
           {
             image:
               "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1000/v1776666078/before_flowchart_mcwrme.webp",
+            description: "以 Miro 繪製 flowchart",
           },
         ],
-        description: "以 Miro 繪製 flowchart",
       },
       {
         subTitle: "After User Flow（優化後）",

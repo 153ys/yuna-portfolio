@@ -222,7 +222,7 @@ export default function ProjectPage() {
                       </div>
                     )}
                     {info.image?.some((img) => img.image.trim() !== "") && (
-                      <div className="mx-4 rounded-xl flex flex-col gap-4 shadow-md">
+                      <div className="mx-4 rounded-xl flex flex-col gap-4">
                         {info.image
                           .filter((img) => img.image.trim() !== "")
                           .map((img, i) => {
@@ -231,27 +231,32 @@ export default function ProjectPage() {
                               `${info.title ?? "project image"}-${i}`;
 
                             return (
-                              <button
-                                key={i}
-                                type="button"
-                                className="group overflow-hidden rounded-xl text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary/60"
-                                aria-label={`預覽圖片：${imageAlt}`}
-                                onClick={() =>
-                                  setPreviewImage({
-                                    src: img.image,
-                                    alt: imageAlt,
-                                    description:
-                                      img.description ?? info.description,
-                                  })
-                                }
-                              >
-                                <img
-                                  src={img.image}
-                                  alt={imageAlt}
-                                  crossOrigin="anonymous"
-                                  className="w-full h-auto object-cover rounded-xl transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95"
-                                />
-                              </button>
+                              <div key={i} className="flex flex-col gap-2">
+                                <button
+                                  type="button"
+                                  className="shadow-md group overflow-hidden rounded-xl text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary/60"
+                                  aria-label={`預覽圖片：${imageAlt}`}
+                                  onClick={() =>
+                                    setPreviewImage({
+                                      src: img.image,
+                                      alt: imageAlt,
+                                      description: img.description,
+                                    })
+                                  }
+                                >
+                                  <img
+                                    src={img.image}
+                                    alt={imageAlt}
+                                    crossOrigin="anonymous"
+                                    className="w-full h-auto object-cover rounded-xl transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95"
+                                  />
+                                </button>
+                                {img.description && (
+                                  <figcaption className="text-center text-gray-500 italic text-sm">
+                                    {img.description}
+                                  </figcaption>
+                                )}
+                              </div>
                             );
                           })}
                       </div>
@@ -265,11 +270,6 @@ export default function ProjectPage() {
                       >
                         Figma Link
                       </a>
-                    )}
-                    {info.description && (
-                      <p className="text-center text-gray-500 italic text-sm mb-4">
-                        {info.description}
-                      </p>
                     )}
                   </motion.div>
                 ))}
