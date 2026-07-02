@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -35,7 +36,7 @@ export default function ImagePreviewModal({
     };
   }, [image, onClose]);
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {image && (
         <motion.div
@@ -83,6 +84,7 @@ export default function ImagePreviewModal({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

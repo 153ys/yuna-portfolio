@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, type ReactNode } from "react";
+import ImagePreviewModal from "./ImagePreviewModal";
 
 export type DecisionCard = {
   label: string;
@@ -19,12 +20,22 @@ type DecisionCardItemProps = {
   index: number;
   tabs?: ReactNode;
   contentKey?: string;
+  onPreviewImage: (image: PreviewImage) => void;
+};
+
+type PreviewImage = {
+  src: string;
+  alt: string;
+  description?: string;
 };
 
 function DecisionCardContent({
   card,
   index,
-}: Pick<DecisionCardItemProps, "card" | "index">) {
+  onPreviewImage,
+}: Pick<DecisionCardItemProps, "card" | "index" | "onPreviewImage">) {
+  const cardImage = card.image;
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2">
@@ -34,15 +45,29 @@ function DecisionCardContent({
         <h4 className="font-bold leading-snug">{card.title}</h4>
       </div>
 
-      {card.image ? (
-        <img
-          src={card.image}
-          alt={card.title}
-          className="w-full rounded-xl border-2 border-black object-cover"
-          loading="lazy"
-        />
+      {cardImage ? (
+        <button
+          type="button"
+          className="group mb-2 overflow-hidden rounded-xl text-left shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary/60"
+          aria-label={`預覽圖片：${card.title}`}
+          onClick={() =>
+            onPreviewImage({
+              src: cardImage,
+              alt: card.title,
+              description: card.title,
+            })
+          }
+        >
+          <img
+            src={cardImage}
+            alt={card.title}
+            crossOrigin="anonymous"
+            className="w-full rounded-xl object-cover transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95"
+            loading="lazy"
+          />
+        </button>
       ) : (
-        <div className="w-full aspect-video rounded-xl border-2 border-black bg-gray-100 flex items-center justify-center text-gray-400 font-bold">
+        <div className="w-full aspect-video rounded-xl shadow-md mb-2 bg-gray-100 flex items-center justify-center text-gray-400 font-bold">
           Image / GIF
         </div>
       )}
@@ -72,6 +97,7 @@ function DecisionCardItem({
   index,
   tabs,
   contentKey,
+  onPreviewImage,
 }: DecisionCardItemProps) {
   return (
     <div className="mt-2 card-brutal p-4 flex flex-col gap-2 h-full">
@@ -86,11 +112,19 @@ function DecisionCardItem({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <DecisionCardContent card={card} index={index} />
+            <DecisionCardContent
+              card={card}
+              index={index}
+              onPreviewImage={onPreviewImage}
+            />
           </motion.div>
         </AnimatePresence>
       ) : (
-        <DecisionCardContent card={card} index={index} />
+        <DecisionCardContent
+          card={card}
+          index={index}
+          onPreviewImage={onPreviewImage}
+        />
       )}
     </div>
   );
@@ -100,6 +134,7 @@ export default function DesignDecisionCards({
   cards,
 }: DesignDecisionCardsProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [previewImage, setPreviewImage] = useState<PreviewImage | null>(null);
   const activeCard = cards[activeIndex];
 
   if (!cards.length || !activeCard) return null;
@@ -112,6 +147,7 @@ export default function DesignDecisionCards({
           card={activeCard}
           index={activeIndex}
           contentKey={activeCard.label}
+          onPreviewImage={setPreviewImage}
           tabs={
             <div className="flex gap-2 overflow-x-auto pb-1">
               {cards.map((card, index) => {
@@ -151,9 +187,18 @@ export default function DesignDecisionCards({
       {/* Desktop：Cards */}
       <div className="hidden lg:grid grid-cols-2 gap-4">
         {cards.map((card, index) => (
-          <DecisionCardItem key={card.label} card={card} index={index} />
+          <DecisionCardItem
+            key={card.label}
+            card={card}
+            index={index}
+            onPreviewImage={setPreviewImage}
+          />
         ))}
       </div>
+      <ImagePreviewModal
+        image={previewImage}
+        onClose={() => setPreviewImage(null)}
+      />
     </section>
   );
 }

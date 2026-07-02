@@ -34,7 +34,7 @@ export const projectsData: Project[] = [
     id: "petpetni",
     title: "PetPetNi",
     time: "2025/11~2026/1",
-    tags: ["UI/UX", "Frontend", "Backend", "RWD"],
+    tags: ["UI/UX", "RWD", "Frontend", "Backend"],
     info: "PetPetNi 是以寵物為核心的社群平台，整合了社群貼文、即時聊天、活動揪團、配對功能及 AI 助手，串聯線上社群互動與線下生活情境，打造高黏著度的寵物社交生態圈。[br]我主要負責社群頁體驗規劃與前端開發，將使用者需求轉化為可落地的 Web 產品介面。",
     image: [
       {
@@ -118,7 +118,8 @@ export const projectsData: Project[] = [
           {
             label: "瀑布流",
             title: "瀑布流布局 (Masonry Layout)",
-            image: "",
+            image:
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/v1782971014/design-1_ydilm6.webp",
             problem:
               "社群貼文可能包含純文字、單張圖片、多張圖片或圖文混合內容，若採固定卡片高度，容易產生大量留白，也會降低資訊密度。",
             solution:
@@ -129,7 +130,7 @@ export const projectsData: Project[] = [
           {
             label: "骨架屏",
             title: "骨架屏 (Skeleton Screen)",
-            image: "",
+            image: "/projects/design-2.gif",
             problem:
               "貼文資料載入時，若只顯示空白或旋轉圖示，使用者較難判斷頁面是否正常載入，也容易產生等待焦慮。",
             solution:
@@ -140,7 +141,7 @@ export const projectsData: Project[] = [
           {
             label: "RWD",
             title: "RWD 行動裝置體驗",
-            image: "",
+            image: "/projects/design-3.gif",
             problem:
               "社群頁在手機情境下更常被使用，但手機螢幕空間有限，若直接縮小桌機版面，容易造成閱讀與操作負擔。",
             solution:
@@ -151,11 +152,11 @@ export const projectsData: Project[] = [
           {
             label: "前端狀態",
             title: "即時互動回饋",
-            image: "",
+            image: "/projects/design-4.gif",
             problem:
-              "按讚、收藏與留言數若沒有即時同步，使用者會不確定操作是否成功，降低互動信心。",
+              "按讚、留言與收藏數若沒有即時同步，使用者會不確定操作是否成功，降低互動信心。",
             solution:
-              "透過 Pinia 集中管理社群頁狀態，讓貼文互動後能立即更新畫面，並同步留言數與 Action Bar 狀態。",
+              "透過 Pinia 集中管理社群頁狀態，讓貼文互動後能立即更新畫面，並同步按讚、留言及收藏的狀態。",
             impact:
               "讓互動結果即時呈現在畫面上，提高操作回饋的可信度，也讓使用者更願意持續互動。",
           },
