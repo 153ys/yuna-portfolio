@@ -6,6 +6,7 @@ export type DecisionCard = {
   label: string;
   title: string;
   image?: string;
+  imageAspectRatio?: string;
   problem: string;
   solution: string;
   impact: string;
@@ -35,6 +36,9 @@ function DecisionCardContent({
   onPreviewImage,
 }: Pick<DecisionCardItemProps, "card" | "index" | "onPreviewImage">) {
   const cardImage = card.image;
+  const [loadedImage, setLoadedImage] = useState<string | null>(null);
+  const isImageLoaded = loadedImage === cardImage;
+  const hasImageAspectRatio = Boolean(card.imageAspectRatio);
 
   return (
     <div className="flex flex-col gap-2">
@@ -48,7 +52,12 @@ function DecisionCardContent({
       {cardImage ? (
         <button
           type="button"
-          className="group mb-2 overflow-hidden rounded-xl text-left shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary/60"
+          className="group relative mb-2 w-full overflow-hidden rounded-xl bg-gray-100 text-left shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary/60"
+          style={
+            card.imageAspectRatio
+              ? { aspectRatio: card.imageAspectRatio }
+              : undefined
+          }
           aria-label={`預覽圖片：${card.title}`}
           onClick={() =>
             onPreviewImage({
@@ -62,9 +71,18 @@ function DecisionCardContent({
             src={cardImage}
             alt={card.title}
             crossOrigin="anonymous"
-            className="w-full rounded-xl object-cover transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95"
+            className={`w-full rounded-xl object-cover transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95 ${
+              hasImageAspectRatio ? "h-full" : ""
+            } ${
+              isImageLoaded ? "opacity-100" : "opacity-0"
+            }`}
             loading="lazy"
+            onLoad={() => setLoadedImage(cardImage)}
+            onError={() => setLoadedImage(cardImage)}
           />
+          {!isImageLoaded && (
+            <div className="absolute inset-0 animate-pulse rounded-xl bg-linear-to-r from-gray-100 via-gray-200 to-gray-100" />
+          )}
         </button>
       ) : (
         <div className="w-full aspect-video rounded-xl shadow-md mb-2 bg-gray-100 flex items-center justify-center text-gray-400 font-bold">
