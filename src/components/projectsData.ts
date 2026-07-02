@@ -10,6 +10,7 @@ export type Project = {
   github?: string;
   projectLink?: string;
   projectInfo?: InfoSection[];
+  figmaLink?: string;
 };
 
 export type InfoSection = {
@@ -19,7 +20,6 @@ export type InfoSection = {
   content?: string;
   list?: string[][];
   image?: Image[];
-  figmaLink?: string;
   tech?: string[];
   decisionCards?: DecisionCard[];
 };
@@ -43,6 +43,8 @@ export const projectsData: Project[] = [
       },
     ],
     github: "https://github.com/153ys/PetPetNi",
+    figmaLink:
+      "https://www.figma.com/design/LJspNn5lSVP7Ua0P59CyP0/PetPetNi?node-id=0-1&t=uFPx8Xfdoisu6JFK-1",
     projectLink: "https://pet-pet-ni.vercel.app/",
     projectInfo: [
       {
@@ -62,19 +64,12 @@ export const projectsData: Project[] = [
       {
         title: "專案背景",
         content:
-          "許多飼主會在 Instagram 或 Facebook 分享寵物生活，但很容易被其他動態淹沒，傳統的社群也沒有專為寵物交流設計的互動功能。因此 PetPetNi 希望打造一個以寵物為核心的社群平台，讓分享、交流與配對都能在同一個產品中完成。",
+          "許多飼主會在 Instagram 或 Facebook 分享寵物生活，但很容易被其他動態淹沒，傳統的社群也沒有專為寵物交流設計的互動功能。因此 PetPetNi 希望打造一個以寵物為核心的社群平台，讓分享、交流與配對都能在同一個產品中完成。本專案聚焦於社群首頁的瀏覽體驗與互動流程設計。",
       },
       {
         title: "我的角色",
-        list: [
-          [
-            "規劃社群頁資訊架構與互動順序",
-            "使用 Tailwind CSS 建立全域樣式規範，維持視覺一致性",
-            "拆分貼文卡片、留言區、互動按鈕等可重用元件",
-            "串接貼文、圖片上傳、留言、按讚、收藏、等後端 API",
-            "實作響應式設計，確保手機與桌機一致性，並符合手機版面操作習慣",
-          ],
-        ],
+        content:
+          "負責社群首頁的資訊架構規劃、介面設計與前端實作，包含貼文列表、留言、按讚、收藏等核心功能，並建立全域樣式規範，確保跨頁面體驗一致。",
       },
       {
         title: "設計流程",
@@ -91,9 +86,9 @@ export const projectsData: Project[] = [
         ],
       },
       {
-        subTitle: "Wireframe：確認資訊架構",
+        subTitle: "Wireframe",
         content:
-          "先確認貼文列表、發文入口、留言區與互動按鈕的位置，再進入 UI 設計。",
+          "以 Miro 繪製簡易 Wireframe，確認貼文列表、發文入口、留言區與互動按鈕的位置，再進入 UI 設計。",
         image: [
           {
             image:
@@ -112,6 +107,39 @@ export const projectsData: Project[] = [
         ],
       },
       {
+        subTitle: "UI Design",
+        content:
+          "使用 Figma 建立社群首頁介面與可重複使用的 UI Components，統一資訊層級與互動樣式，作為後續頁面設計與前端實作的基礎。",
+        image: [
+          {
+            image:
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/v1783020441/%E7%A4%BE%E7%BE%A4%E9%A0%81_syb7ei.webp",
+            description: "社群頁 (桌機版)",
+          },
+        ],
+      },
+      {
+        image: [
+          {
+            image:
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/v1783020362/ui_components_pidytx.webp",
+            description: "社群頁 UI Components",
+          },
+        ],
+      },
+      {
+        subTitle: "Final UI",
+        content:
+          "將設計稿實作為可操作的社群首頁，並依不同裝置設計版面與互動體驗。",
+        image: [
+          {
+            image:
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/v1783022169/final_wizges.webp",
+            description: "社群頁實作畫面",
+          },
+        ],
+      },
+      {
         title: "設計決策",
         type: "decisionCards",
         decisionCards: [
@@ -122,7 +150,7 @@ export const projectsData: Project[] = [
               "https://res.cloudinary.com/dsxurz7zb/image/upload/v1782971014/design-1_ydilm6.webp",
             imageAspectRatio: "1350 / 900",
             problem:
-              "社群貼文可能包含純文字、單張圖片、多張圖片或圖文混合內容，若採固定卡片高度，容易產生大量留白，也會降低資訊密度。",
+              "貼文可能包含純文字、單張圖片、多張圖片或圖文混合內容，若採固定卡片高度，容易產生大量留白，也會降低資訊密度。",
             solution:
               "平板以上裝置使用雙欄式瀑布流布局，讓不同高度的貼文能自然排列；手機版則維持單欄瀏覽，降低閱讀與操作負擔。",
             impact:
@@ -169,7 +197,7 @@ export const projectsData: Project[] = [
       {
         title: "收穫與反思",
         content:
-          "這次專案讓我最大的收穫，不只是完成一個社群產品，而是開始建立從需求、體驗到實作的完整思考方式：",
+          "這次專案最大的收穫，不只是完成一個社群產品，而是開始建立從需求、體驗到實作的完整思考方式：",
         list: [
           [
             "從 Wireframe 開始驗證資訊架構與互動流程，讓我理解比起直接設計 UI，更重要的是先確認使用者操作是否合理。",
@@ -181,106 +209,106 @@ export const projectsData: Project[] = [
     ],
   },
 
-  {
-    id: "pet-matching-ux",
-    title: "PetPetNi 配對體驗優化",
-    time: "2026/04",
-    tags: ["Case Study", "UX", "UserFlow", "Claude Design"],
-    info: "以 PetPetNi 的抽卡配對機制為出發點，重新設計配對結果的呈現方式，提升使用者的理解與信任，並引導自然開啟互動。",
-    image: [
-      {
-        image:
-          "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1200/v1776674726/match_result_ijh3ig.webp",
-      },
-    ],
-    projectInfo: [
-      {
-        title: "問題定義",
-        content:
-          "為降低使用者搜尋成本，採用每日一次的抽卡機制，並根據註冊時輸入的所在地區與寵物個性標籤進行自動媒合，最終呈現配對對象與配對指數。然而透過抽卡提升趣味性的同時，也產生以下體驗問題：",
-        list: [
-          [
-            "使用者缺乏主動選擇權，配對過程較為被動",
-            "配對結果的判斷依據（雷達圖）不易理解，影響信任感",
-            "即使成功配對，仍缺乏有效引導，導致互動啟動率偏低",
-          ],
-        ],
-      },
-      {
-        title: "洞察",
-        content:
-          "抽卡機制能帶來期待感與新鮮感，但在社交配對情境中，使用者更在意的是「配對品質」與「互動可能性」。當配對結果無法被理解或感覺不可控時，遊戲化機制反而會轉化為挫折感，進而降低持續使用意願。因此，設計需在「趣味性」與「可理解性／可控性」之間取得平衡，並進一步降低配對後的互動門檻。",
-      },
-      {
-        title: "目標",
-        list: [
-          [
-            "提升使用者對配對結果的理解與信任",
-            "在維持抽卡機制下，增加使用者參與感與控制感",
-            "提高配對後的互動啟動率（破冰）",
-          ],
-        ],
-      },
-      {
-        title: "解方",
-        subTitle: "1. 雷達圖優化",
-        list: [
-          [
-            "當滑鼠懸浮/點擊維度指標時，顯示解釋，(例如：特質代表寵物的個性)",
-            "加一句總結：「你們適合一起戶外遛狗」，讓使用者一眼就知道為什麼配對成功",
-          ],
-        ],
-      },
-      {
-        subTitle: "2. 給「輕量控制權」",
-        list: [
-          [
-            "抽卡前：偏好設定(例如：想找同地區的人/想找貓奴)",
-            "每次抽卡提供一次重抽機會",
-          ],
-        ],
-      },
-      {
-        subTitle: "3. 降低互動門檻（破冰）",
-        list: [
-          [
-            "系統根據配對資料生成開場白，例如：『你們都養柴犬，要不要分享最近發生了哪些小趣事呢？』",
-            "在聊天室中提供互動按鈕，例如：『分享寵物照片』、『發送表情符號』等，引導使用者開啟對話",
-          ],
-        ],
-      },
-      {
-        title: "User Flow",
-        subTitle: "Before User Flow（現況）",
-        image: [
-          {
-            image:
-              "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1000/v1776666078/before_flowchart_mcwrme.webp",
-            description: "以 Miro 繪製 flowchart",
-          },
-        ],
-      },
-      {
-        subTitle: "After User Flow（優化後）",
-        image: [
-          {
-            image:
-              "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1000/v1776666310/after_flow-chart_bx6qhn.webp",
-          },
-        ],
-      },
-      {
-        title: "優化後 Mockup",
-        content: "使用 Claude Design，產出 Mockup",
-        image: [
-          {
-            image:
-              "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1200/v1776674726/match_result_ijh3ig.webp",
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   id: "pet-matching-ux",
+  //   title: "PetPetNi 配對體驗優化",
+  //   time: "2026/04",
+  //   tags: ["Case Study", "UX", "UserFlow", "Claude Design"],
+  //   info: "以 PetPetNi 的抽卡配對機制為出發點，重新設計配對結果的呈現方式，提升使用者的理解與信任，並引導自然開啟互動。",
+  //   image: [
+  //     {
+  //       image:
+  //         "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1200/v1776674726/match_result_ijh3ig.webp",
+  //     },
+  //   ],
+  //   projectInfo: [
+  //     {
+  //       title: "問題定義",
+  //       content:
+  //         "為降低使用者搜尋成本，採用每日一次的抽卡機制，並根據註冊時輸入的所在地區與寵物個性標籤進行自動媒合，最終呈現配對對象與配對指數。然而透過抽卡提升趣味性的同時，也產生以下體驗問題：",
+  //       list: [
+  //         [
+  //           "使用者缺乏主動選擇權，配對過程較為被動",
+  //           "配對結果的判斷依據（雷達圖）不易理解，影響信任感",
+  //           "即使成功配對，仍缺乏有效引導，導致互動啟動率偏低",
+  //         ],
+  //       ],
+  //     },
+  //     {
+  //       title: "洞察",
+  //       content:
+  //         "抽卡機制能帶來期待感與新鮮感，但在社交配對情境中，使用者更在意的是「配對品質」與「互動可能性」。當配對結果無法被理解或感覺不可控時，遊戲化機制反而會轉化為挫折感，進而降低持續使用意願。因此，設計需在「趣味性」與「可理解性／可控性」之間取得平衡，並進一步降低配對後的互動門檻。",
+  //     },
+  //     {
+  //       title: "目標",
+  //       list: [
+  //         [
+  //           "提升使用者對配對結果的理解與信任",
+  //           "在維持抽卡機制下，增加使用者參與感與控制感",
+  //           "提高配對後的互動啟動率（破冰）",
+  //         ],
+  //       ],
+  //     },
+  //     {
+  //       title: "解方",
+  //       subTitle: "1. 雷達圖優化",
+  //       list: [
+  //         [
+  //           "當滑鼠懸浮/點擊維度指標時，顯示解釋，(例如：特質代表寵物的個性)",
+  //           "加一句總結：「你們適合一起戶外遛狗」，讓使用者一眼就知道為什麼配對成功",
+  //         ],
+  //       ],
+  //     },
+  //     {
+  //       subTitle: "2. 給「輕量控制權」",
+  //       list: [
+  //         [
+  //           "抽卡前：偏好設定(例如：想找同地區的人/想找貓奴)",
+  //           "每次抽卡提供一次重抽機會",
+  //         ],
+  //       ],
+  //     },
+  //     {
+  //       subTitle: "3. 降低互動門檻（破冰）",
+  //       list: [
+  //         [
+  //           "系統根據配對資料生成開場白，例如：『你們都養柴犬，要不要分享最近發生了哪些小趣事呢？』",
+  //           "在聊天室中提供互動按鈕，例如：『分享寵物照片』、『發送表情符號』等，引導使用者開啟對話",
+  //         ],
+  //       ],
+  //     },
+  //     {
+  //       title: "User Flow",
+  //       subTitle: "Before User Flow（現況）",
+  //       image: [
+  //         {
+  //           image:
+  //             "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1000/v1776666078/before_flowchart_mcwrme.webp",
+  //           description: "以 Miro 繪製 flowchart",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       subTitle: "After User Flow（優化後）",
+  //       image: [
+  //         {
+  //           image:
+  //             "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1000/v1776666310/after_flow-chart_bx6qhn.webp",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       title: "優化後 Mockup",
+  //       content: "使用 Claude Design，產出 Mockup",
+  //       image: [
+  //         {
+  //           image:
+  //             "https://res.cloudinary.com/dsxurz7zb/image/upload/q_auto,f_auto,c_scale,w_1200/v1776674726/match_result_ijh3ig.webp",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   // {
   //   id: "portfolio",
   //   title: "個人網站",

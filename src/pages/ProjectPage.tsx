@@ -5,6 +5,7 @@ import { projectsData } from "../components/projectsData";
 import BackgroundNoise from "../components/BackgroundNoise";
 import Icon from "../components/Icon";
 import GithubIcon from "../components/GithubIcon";
+import FigmaIcon from "../components/FigmaIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../components/Button";
@@ -147,7 +148,18 @@ export default function ProjectPage() {
                     rel="noopener noreferrer"
                     aria-label="github project page"
                   >
-                    <GithubIcon className="w-4 h-4" /> GitHub
+                    <GithubIcon className="w-4 h-4" />
+                  </Button>
+                )}
+                {project.figmaLink && (
+                  <Button
+                    variant="secondary"
+                    href={project.figmaLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="figma project page"
+                  >
+                    <FigmaIcon className="w-4 h-4" />
                   </Button>
                 )}
               </div>
@@ -260,16 +272,6 @@ export default function ProjectPage() {
                             );
                           })}
                       </div>
-                    )}
-                    {info.figmaLink && (
-                      <a
-                        className="px-5 py-1 text-sm text-blue-400"
-                        href={info.figmaLink}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Figma Link
-                      </a>
                     )}
                   </motion.div>
                 ))}
