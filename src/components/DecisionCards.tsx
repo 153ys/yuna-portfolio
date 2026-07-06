@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, type ReactNode } from "react";
 import ImagePreviewModal from "./ImagePreviewModal";
+import Icon from "../components/Icon";
 
 export type DecisionCard = {
   label: string;
@@ -32,24 +33,21 @@ type PreviewImage = {
 
 function DecisionCardContent({
   card,
-  index,
   onPreviewImage,
 }: Pick<DecisionCardItemProps, "card" | "index" | "onPreviewImage">) {
-  const cardImage = card.image;
+  const cardImage = card.image?.trim();
   const [loadedImage, setLoadedImage] = useState<string | null>(null);
   const isImageLoaded = loadedImage === cardImage;
   const hasImageAspectRatio = Boolean(card.imageAspectRatio);
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
-        <span className="bg-primary/70 border-2 border-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm shrink-0">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <h4 className="font-bold leading-snug">{card.title}</h4>
+      <div className="flex items-center gap-2 pb-2">
+        <Icon name="deco_star" className="w-5 h-5" />
+        <h4 className="font-bold text-lg leading-snug">{card.title}</h4>
       </div>
 
-      {cardImage ? (
+      {cardImage && (
         <button
           type="button"
           className="group relative mb-2 w-full overflow-hidden rounded-xl bg-gray-100 text-left shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary/60"
@@ -73,9 +71,7 @@ function DecisionCardContent({
             crossOrigin="anonymous"
             className={`w-full rounded-xl object-cover transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95 ${
               hasImageAspectRatio ? "h-full" : ""
-            } ${
-              isImageLoaded ? "opacity-100" : "opacity-0"
-            }`}
+            } ${isImageLoaded ? "opacity-100" : "opacity-0"}`}
             loading="lazy"
             onLoad={() => setLoadedImage(cardImage)}
             onError={() => setLoadedImage(cardImage)}
@@ -84,10 +80,6 @@ function DecisionCardContent({
             <div className="absolute inset-0 animate-pulse rounded-xl bg-linear-to-r from-gray-100 via-gray-200 to-gray-100" />
           )}
         </button>
-      ) : (
-        <div className="w-full aspect-video rounded-xl shadow-md mb-2 bg-gray-100 flex items-center justify-center text-gray-400 font-bold">
-          Image / GIF
-        </div>
       )}
 
       <div className="flex flex-col gap-2 text-sm leading-relaxed">

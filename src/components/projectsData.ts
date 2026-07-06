@@ -19,9 +19,16 @@ export type InfoSection = {
   subTitle?: string;
   content?: string;
   list?: string[][];
+  video?: Video[];
   image?: Image[];
   tech?: string[];
   decisionCards?: DecisionCard[];
+};
+
+export type Video = {
+  video: string;
+  description?: string;
+  poster?: string;
 };
 
 export type Image = {
@@ -33,9 +40,9 @@ export const projectsData: Project[] = [
   {
     id: "petpetni",
     title: "PetPetNi",
-    time: "2025/11~2026/1",
+    time: "2025/12~2026/1",
     tags: ["UI/UX", "RWD", "Frontend", "Backend"],
-    info: "PetPetNi 是以寵物為核心的社群平台，整合了社群貼文、即時聊天、活動揪團、配對功能及 AI 助手，串聯線上社群互動與線下生活情境，打造高黏著度的寵物社交生態圈。[br]我主要負責社群頁體驗規劃與前端開發，將使用者需求轉化為可落地的 Web 產品介面。",
+    info: "PetPetNi 是以寵物為核心的社群平台，整合了社群貼文、即時聊天、活動揪團、配對功能及 AI 助手，串聯線上社群互動與線下生活情境，打造高黏著度的寵物社交生態圈。[br]我在專案中主要負責社群頁的介面設計與前端實作。",
     image: [
       {
         image:
@@ -64,7 +71,7 @@ export const projectsData: Project[] = [
       {
         title: "專案背景",
         content:
-          "許多飼主會在 Instagram 或 Facebook 分享寵物生活，但很容易被其他動態淹沒，傳統的社群也沒有專為寵物交流設計的互動功能。因此 PetPetNi 希望打造一個以寵物為核心的社群平台，讓分享、交流與配對都能在同一個產品中完成。本專案聚焦於社群首頁的瀏覽體驗與互動流程設計。",
+          "許多飼主會在 Instagram 或 Facebook 分享寵物生活，但很容易被其他動態淹沒，傳統的社群也沒有專為寵物交流設計的互動功能，因此 PetPetNi 希望打造一個以寵物為核心的社群平台，讓分享、交流與配對都能在同一個產品中完成。",
       },
       {
         title: "我的角色",
@@ -135,7 +142,7 @@ export const projectsData: Project[] = [
           {
             image:
               "https://res.cloudinary.com/dsxurz7zb/image/upload/v1783022169/final_wizges.webp",
-            description: "社群頁實作畫面",
+            description: "社群頁實際畫面",
           },
         ],
       },
@@ -197,14 +204,152 @@ export const projectsData: Project[] = [
       {
         title: "收穫與反思",
         content:
-          "這次專案最大的收穫，不只是完成一個社群產品，而是開始建立從需求、體驗到實作的完整思考方式：",
+          "第一次完整參與前端開發，讓我開始理解元件拆分、資料流與技術限制，也讓我在設計時能同步思考方案是否容易實作，而不是只追求視覺呈現。這次專案最大的收穫，不只是完成一個社群產品，而是開始建立從需求、體驗到實作的完整思考方式。[br]因為專案只有約一個月時間開發，未來如果有更多時間，希望能加入使用者測試與數據驗證，確認設計是否真正改善使用者體驗，而不只是依據團隊討論或設計直覺做決策。",
+      },
+    ],
+  },
+  {
+    id: "line-liff",
+    title: "LINE LIFF 求籤體驗設計",
+    time: "2024/05~2024/11",
+    tags: ["UI/UX", "LINE LIFF", "AI", "Prototype"],
+    info: "結合 LINE LIFF 與 AI 文字生成技術，打造融合日本神社文化的互動求籤遊戲。[br]我在專案中主要負責 AI 技術運用發想、畫面設計。",
+    image: [
+      {
+        image:
+          "https://res.cloudinary.com/dsxurz7zb/image/upload/v1783323344/line_liff_uykqs9.webp",
+        description: "LINE LIFF × AI 神社求籤體驗",
+      },
+    ],
+    figmaLink:
+      "https://www.figma.com/design/zEGtgFqfRgrZAzWBS4Ujtq/wireframe?node-id=0-1&t=F4EDtjbrmUrITaZh-1",
+    projectInfo: [
+      {
+        title: "技術與工具",
+        tech: ["LINE LIFF", "Figma", "AI", "UI Design"],
+      },
+      {
+        title: "專案背景",
+        content:
+          "隨著生成式 AI 技術逐漸受到市場關注，團隊希望探索 AI 應用於行銷互動與品牌活動的可能性，並拓展既有服務範圍，因此與技術部門共同開發 LINE LIFF 線上求籤遊戲，以日本求籤體驗作為包裝，結合 AI 文字生成技術，讓使用者根據不同主題獲得個人化的籤詩內容，提升活動參與感與話題性。",
+      },
+      {
+        title: "我的角色",
+        content:
+          "與創意及技術成員共同發想 AI 技術運用、負責介面視覺設計與使用者流程規劃、製作 Figma Prototype 驗證互動流程，參與 AI 籤詩呈現方式與內容結構調整",
+      },
+      {
+        title: "設計流程",
+        subTitle: "需求分析",
+        content:
+          "初版流程以「輸入問題 → AI 回答」為核心，雖然能快速完成求籤，但體驗更接近一般 AI 聊天工具，缺少神社求籤應有的期待感與參與感。因此重新思考：除了獲得 AI 籤詩，還能如何讓使用者真正投入整個求籤體驗？",
+      },
+      {
+        subTitle: "Wireframe",
+        content:
+          "專案初期以『快速完成求籤』為主要目標，因此使用者完成授權後，很快就會進入提問與結果頁。我先繪製簡易的 Wireframe 呈現互動流程與畫面配置，希望快速驗證功能是否完整，再逐步細化介面設計",
+        image: [
+          {
+            image:
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/v1783330986/wireframe_qniurt.webp",
+            description: "初期 Wireframe",
+          },
+        ],
+      },
+      {
+        subTitle: "流程迭代",
+        content:
+          "根據初版 Wireframe 我們重新檢視整體體驗，發現流程雖然順暢，但更像一般 AI 問答，而非神社求籤。因此重新調整使用者流程，加入洗手、投幣、搖鈴等參拜儀式，以及主題選擇與角色引導，讓 AI 籤詩成為整段體驗的最後回饋。",
+        image: [
+          {
+            image:
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/v1783331931/workflow_dewzvj.webp",
+            description: "重新規劃體驗流程",
+          },
+        ],
+      },
+      {
+        subTitle: "Final UI",
+        content:
+          "最終畫面以神社情境、角色對話框與直式籤詩結果頁作為主要視覺語言，讓使用者從進入體驗、完成參拜到閱讀結果，都能維持一致的情境感與操作節奏。",
+        video: [
+          { video: "/projects/liff_record.mp4", description: "完整求籤過程" },
+        ],
+        image: [
+          {
+            image:
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/v1783324771/temple_flow_q7bddr.webp",
+            description: "參拜過程畫面",
+          },
+          {
+            image:
+              "https://res.cloudinary.com/dsxurz7zb/image/upload/v1783324839/%E7%B1%A4%E8%A9%A9_mp7shm.webp",
+            description: "四種籤詩設計",
+          },
+        ],
+      },
+      {
+        title: "關鍵體驗設計",
+        type: "decisionCards",
+        decisionCards: [
+          {
+            label: "儀式感",
+            title: "建立神社參拜流程",
+            problem:
+              "若使用者一進入頁面就直接輸入問題，體驗會接近一般 AI 聊天室，缺少求籤應有的期待感與情境投入。",
+            solution:
+              "將流程重新設計為洗手、投幣、搖鈴、選擇主題與輸入問題等步驟，讓使用者在取得籤詩前先完成一段完整的參拜儀式。",
+            impact:
+              "讓 AI 回覆不只是結果，而是整段互動體驗的最後回饋，提升使用者的參與感與沉浸感。",
+          },
+          {
+            label: "引導",
+            title: "以角色對話降低操作不確定性",
+            problem:
+              "多步驟互動若只依靠按鈕與文字提示，使用者可能不清楚目前進度，也較難理解每個步驟的意義。",
+            solution:
+              "加入原創角色與 RPG 式對話框，透過角色語氣引導使用者完成每個步驟，讓系統提示變得更自然，也更符合神社體驗的情境。",
+            impact:
+              "降低使用者在流程中的不確定感，讓操作提示不只是功能說明，也成為體驗的一部分。",
+          },
+          {
+            label: "結果頁",
+            title: "AI 籤詩閱讀體驗",
+            problem:
+              "AI 生成內容長度與語氣可能不一致，若直接顯示在畫面上，容易造成結果頁資訊層級混亂，影響閱讀體驗。",
+            solution:
+              "針對籤詩結果建立固定資訊架構，包含吉凶標示、籤詩內容、解釋文字與延伸建議，並以直式排版呼應傳統籤詩形式。",
+            impact:
+              "讓不同主題與不同長度的 AI 回覆都能維持一致的閱讀節奏，提升結果頁的可讀性與完整感。",
+          },
+          {
+            label: "AI 輸出",
+            title: "Prompt 與內容規範",
+            problem:
+              "若 AI 回覆沒有明確格式限制，容易出現語氣不一致、內容過長或與求籤情境不符的結果。",
+            solution:
+              "與技術夥伴共同測試 Prompt，調整回覆語氣、字數、吉凶標示與內容結構，讓 AI 生成結果更符合神社求籤的世界觀。",
+            impact:
+              "提升 AI 回覆的一致性與可預期性，也讓生成內容能更穩定地被放入既有 UI 版型中。",
+          },
+        ],
+      },
+      {
+        title: "成果",
+        content:
+          "此專案將原本單純的 AI 問答，重新設計為具有儀式感與情境引導的求籤體驗，透過完整的互動流程與資訊規劃，讓 AI 回覆更符合使用者對神社求籤的期待。",
         list: [
           [
-            "從 Wireframe 開始驗證資訊架構與互動流程，讓我理解比起直接設計 UI，更重要的是先確認使用者操作是否合理。",
-            "第一次完整參與前端開發，讓我開始理解元件拆分、資料流與技術限制，也讓我在設計時能同步思考方案是否容易實作，而不是只追求視覺呈現。",
-            "未來如果有更多時間，希望能加入使用者測試與數據驗證，確認設計是否真正改善使用者體驗，而不只是依據團隊討論或設計直覺做決策。",
+            "建立完整的求籤體驗流程，涵蓋參拜、提問與取得籤詩。",
+            "設計角色互動與神社情境，提升沉浸感與參與意願。",
+            "規劃 AI 籤詩結果頁的資訊層級與版面，提高生成內容的可讀性。",
           ],
         ],
+      },
+      {
+        title: "收穫與反思",
+        content:
+          "這次專案讓我重新思考 AI 在產品中的角色。真正的體驗設計並不是把生成內容放進介面，而是從使用者進入流程開始，就透過情境、互動與資訊設計建立合理的期待，讓 AI 回覆成為整體體驗的一部分，而不是單獨存在的功能。也因為參與了 AI 籤詩內容規劃與結果頁設計，我更理解生成內容需要與 UI 一起規劃，才能兼顧閱讀體驗與資訊一致性。[br]由於此專案主要作為提案展示使用，尚未進入正式上線階段，因此未取得實際使用數據。未來如果有機會進一步發展，我希望能透過使用者測試與正式上線，驗證各流程節點的完成率、停留時間及中途離開率，並根據數據持續優化整體體驗。",
       },
     ],
   },

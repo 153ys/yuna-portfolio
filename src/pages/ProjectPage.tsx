@@ -13,6 +13,25 @@ import DesignDecisionCards from "../components/DecisionCards";
 import { renderTextWithLineBreaks } from "../utils/renderTextWithLineBreaks";
 import ImagePreviewModal from "../components/ImagePreviewModal";
 
+type PreviewImage = {
+  src: string;
+  alt: string;
+  description?: string;
+};
+
+type ProjectImageBlockProps = {
+  image: string;
+  alt: string;
+  description?: string;
+  onPreview: (image: PreviewImage) => void;
+};
+
+type ProjectVideoBlockProps = {
+  video: string;
+  description?: string;
+  poster?: string;
+};
+
 const pageVariants: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.5 } },
@@ -23,15 +42,86 @@ const sidebarVariants: Variants = {
   show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: "easeOut" } },
 };
 
+function ProjectImageBlock({
+  image,
+  alt,
+  description,
+  onPreview,
+}: ProjectImageBlockProps) {
+  const [loadedImage, setLoadedImage] = useState<string | null>(null);
+  const isImageLoaded = loadedImage === image;
+
+  return (
+    <figure className="flex flex-col gap-2">
+      <button
+        type="button"
+        className={`group relative w-full overflow-hidden rounded-xl bg-gray-100 text-left shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary/60 ${
+          isImageLoaded ? "" : "min-h-48 md:min-h-64"
+        }`}
+        aria-label={`預覽圖片：${alt}`}
+        onClick={() =>
+          onPreview({
+            src: image,
+            alt,
+            description,
+          })
+        }
+      >
+        <img
+          src={image}
+          alt={alt}
+          crossOrigin="anonymous"
+          className={`h-auto w-full rounded-xl object-cover transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95 ${
+            isImageLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          loading="lazy"
+          onLoad={() => setLoadedImage(image)}
+          onError={() => setLoadedImage(image)}
+        />
+        {!isImageLoaded && (
+          <div className="absolute inset-0 animate-pulse rounded-xl bg-linear-to-r from-gray-100 via-gray-200 to-gray-100" />
+        )}
+      </button>
+      {description && (
+        <figcaption className="text-center text-gray-500 italic text-sm">
+          {description}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
+function ProjectVideoBlock({
+  video,
+  description,
+  poster,
+}: ProjectVideoBlockProps) {
+  return (
+    <figure className="flex flex-col gap-2">
+      <video
+        className="w-full rounded-xl bg-black shadow-md"
+        controls
+        playsInline
+        preload="metadata"
+        poster={poster}
+      >
+        <source src={video} />
+        你的瀏覽器不支援影片播放。
+      </video>
+      {description && (
+        <figcaption className="text-center text-gray-500 italic text-sm">
+          {description}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
 export default function ProjectPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const navigationType = useNavigationType();
-  const [previewImage, setPreviewImage] = useState<{
-    src: string;
-    alt: string;
-    description?: string;
-  } | null>(null);
+  const [previewImage, setPreviewImage] = useState<PreviewImage | null>(null);
   const project = projectsData.find((p) => p.id === id);
 
   const handleBack = () => {
@@ -170,15 +260,28 @@ export default function ProjectPage() {
           <div className="flex-1 flex flex-col gap-5 text-md leading-relaxed">
             {project.projectInfo && project.projectInfo.length > 0 && (
               <div className="flex flex-col gap-4">
-                {project.projectInfo.map((info, idx) => (
-                  <motion.div
-                    key={idx}
-                    className="flex flex-col gap-2"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-                  >
+                {project.projectInfo.map((info, idx) => {
+                  const videos =
+                    info.video?.filter((video) => video.video.trim() !== "") ??
+                    [];
+                  const images =
+                    info.image?.filter((img) => img.image.trim() !== "") ?? [];
+                  const hasVideos = videos.length > 0;
+                  const hasImages = images.length > 0;
+
+                  return (
+                    <motion.div
+                      key={idx}
+                      className="flex flex-col gap-2"
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.3,
+                        ease: "easeOut",
+                      }}
+                    >
                     {info.title && (
                       <h3 className="text-2xl font-bold inline-block self-start px-2 py-1 border-b-2 border-dotted w-full">
                         <motion.span
@@ -197,7 +300,7 @@ export default function ProjectPage() {
                     )}
                     {info.subTitle && (
                       <div className="relative w-fit">
-                        <h4 className="relative z-10 text-[18px] inline-block self-start py-1 font-bold">
+                        <h4 className="py-1 relative z-10 text-xl inline-block self-start font-bold">
                           {info.subTitle}
                         </h4>
                         <span className="absolute bottom-2 left-0 h-3 w-full bg-primary/70"></span>
@@ -233,48 +336,56 @@ export default function ProjectPage() {
                         ))}
                       </div>
                     )}
-                    {info.image?.some((img) => img.image.trim() !== "") && (
-                      <div className="mx-4 rounded-xl flex flex-col gap-4">
-                        {info.image
-                          .filter((img) => img.image.trim() !== "")
-                          .map((img, i) => {
+                    {(hasVideos || hasImages) && (
+                      <div
+                        className={
+                          hasVideos && hasImages
+                            ? "mt-2 mx-4 grid gap-4 rounded-xl lg:grid-cols-[1fr_2fr] lg:items-start"
+                            : "mt-2 mx-4 rounded-xl flex flex-col gap-4"
+                        }
+                      >
+                        {hasVideos && (
+                          <div
+                            className={
+                              hasVideos && hasImages
+                                ? "flex w-1/2 mx-auto flex-col gap-4 lg:w-full"
+                                : "flex w-1/2 flex-col gap-4"
+                            }
+                          >
+                            {videos.map((video, i) => (
+                              <ProjectVideoBlock
+                                key={i}
+                                video={video.video}
+                                description={video.description}
+                                poster={video.poster}
+                              />
+                            ))}
+                          </div>
+                        )}
+                        {hasImages && (
+                          <div className="flex flex-col gap-4">
+                            {images.map((img, i) => {
                             const imageAlt =
                               img.description ??
                               `${info.title ?? "project image"}-${i}`;
 
                             return (
-                              <div key={i} className="flex flex-col gap-2">
-                                <button
-                                  type="button"
-                                  className="shadow-md group overflow-hidden rounded-xl text-left focus:outline-none focus-visible:ring-4 focus-visible:ring-secondary/60"
-                                  aria-label={`預覽圖片：${imageAlt}`}
-                                  onClick={() =>
-                                    setPreviewImage({
-                                      src: img.image,
-                                      alt: imageAlt,
-                                      description: img.description,
-                                    })
-                                  }
-                                >
-                                  <img
-                                    src={img.image}
-                                    alt={imageAlt}
-                                    crossOrigin="anonymous"
-                                    className="w-full h-auto object-cover rounded-xl transition duration-300 group-hover:scale-[1.01] group-hover:brightness-95"
-                                  />
-                                </button>
-                                {img.description && (
-                                  <figcaption className="text-center text-gray-500 italic text-sm">
-                                    {img.description}
-                                  </figcaption>
-                                )}
-                              </div>
+                              <ProjectImageBlock
+                                key={i}
+                                image={img.image}
+                                alt={imageAlt}
+                                description={img.description}
+                                onPreview={setPreviewImage}
+                              />
                             );
-                          })}
+                            })}
+                          </div>
+                        )}
                       </div>
                     )}
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </div>
             )}
           </div>
