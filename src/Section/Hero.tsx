@@ -83,7 +83,7 @@ export const Hero = () => {
           <Icon name="deco_boom" className="w-full h-full" />
         </motion.div>
         <motion.div
-          className="-z-4 absolute -top-8 -right-6 md:-right-24 w-12 md:w-20"
+          className="-z-4 absolute -top-8 -right-6 md:right-0 w-12 md:w-20"
           animate={{ y: [0, -5, 0], rotate: [0, 90, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
