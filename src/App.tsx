@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Navbar } from "./Section/Navbar";
@@ -11,6 +11,14 @@ const ProjectPage = lazy(() => import("./pages/ProjectPage"));
 
 export default function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    window.gtag?.("event", "page_view", {
+      page_path: location.pathname + location.search,
+      page_location: window.location.href,
+      page_title: document.title,
+    });
+  }, [location.pathname, location.search]);
 
   return (
     <>
