@@ -1,10 +1,79 @@
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import { Button } from "../components/Button";
 import { Tooltip } from "../components/Tooltip";
 import Icon from "../components/Icon";
 import GithubIcon from "../components/GithubIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+
+type HeroAction = {
+  label: string;
+  tooltip: string;
+  variant: "accent" | "secondary";
+  icon?: ReactNode;
+  href?: string;
+  target?: "_blank";
+  onClick?: () => void;
+};
+
+const heroActions: HeroAction[] = [
+  {
+    label: "Projects",
+    tooltip: "我的作品",
+    variant: "accent",
+    icon: <FontAwesomeIcon icon={faArrowDown} className="w-5 h-5" />,
+    onClick: () => document.getElementById("projects")?.scrollIntoView(),
+  },
+  {
+    label: "視覺設計",
+    tooltip: "我的視覺設計作品",
+    variant: "secondary",
+    href: "https://yunakao.myportfolio.com/",
+    target: "_blank",
+  },
+  {
+    label: "GitHub",
+    tooltip: "前往 GitHub 查看原始碼",
+    variant: "secondary",
+    icon: <GithubIcon className="w-5 h-5" />,
+    href: "https://github.com/153ys",
+    target: "_blank",
+  },
+];
+
+const HeroActionButton = ({
+  label,
+  tooltip,
+  variant,
+  icon,
+  href,
+  target,
+  onClick,
+}: HeroAction) => (
+  <Tooltip info={tooltip}>
+    {href ? (
+      <Button
+        variant={variant}
+        className="w-full sm:w-auto"
+        href={href}
+        target={target}
+      >
+        {icon}
+        {label}
+      </Button>
+    ) : (
+      <Button
+        variant={variant}
+        className="w-full sm:w-auto"
+        onClick={onClick}
+      >
+        {label}
+        {icon}
+      </Button>
+    )}
+  </Tooltip>
+);
 
 export const Hero = () => {
   return (
@@ -81,53 +150,15 @@ export const Hero = () => {
 
           <p className="text-xl md:text-2xl text-center font-medium text-gray-800 max-w-lg leading-relaxed mix-blend-multiply">
             從視覺設計轉向 UI/UX，結合前端技術
-            <p>打造兼具美感、體驗與可實作的數位產品</p>
+            <span className="block">
+              打造兼具美感、體驗與可實作的數位產品
+            </span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-4 max-w-[70vw] w-full text-center sm:w-auto">
-            <Tooltip info="我的作品">
-              <Button
-                variant="accent"
-                className="w-full sm:w-auto"
-                onClick={() =>
-                  document.getElementById("projects")?.scrollIntoView()
-                }
-              >
-                Projects{" "}
-                <FontAwesomeIcon icon={faArrowDown} className="w-5 h-5" />
-              </Button>
-            </Tooltip>
-            <Tooltip info="我的視覺設計作品">
-              <Button
-                variant="secondary"
-                className="w-full sm:w-auto"
-                href="https://yunakao.myportfolio.com/"
-                target="_blank"
-              >
-                視覺設計
-              </Button>
-            </Tooltip>
-            <Tooltip info="前往 GitHub 查看原始碼">
-              <Button
-                variant="secondary"
-                className="w-full sm:w-auto"
-                href="https://github.com/153ys"
-                target="_blank"
-              >
-                <GithubIcon className="w-5 h-5" />
-                GitHub
-              </Button>
-            </Tooltip>
-            {/* <Tooltip info="我的技術文章">
-              <Button
-                variant="secondary"
-                className="w-full sm:w-auto"
-                href="https://medium.com/@153yuna"
-                target="_blank"
-              >
-                Medium
-              </Button>
-            </Tooltip> */}
+            {heroActions.map((action) => (
+              <HeroActionButton key={action.label} {...action} />
+            ))}
           </div>
         </motion.div>
       </div>
