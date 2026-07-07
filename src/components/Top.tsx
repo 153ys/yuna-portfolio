@@ -2,13 +2,52 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { useIsScrolled } from "../hooks/useIsScrolled";
+import { useEffect, useState } from "react";
 
 export const Top = () => {
   const isScrolled = useIsScrolled();
+  const [isProjectNavVisible, setIsProjectNavVisible] = useState(false);
+
+  useEffect(() => {
+    let observedTarget: Element | null = null;
+    let intersectionObserver: IntersectionObserver | null = null;
+
+    const observeProjectNav = () => {
+      const target = document.querySelector("[data-hide-top]");
+
+      if (target === observedTarget) {
+        return;
+      }
+
+      intersectionObserver?.disconnect();
+      observedTarget = target;
+      setIsProjectNavVisible(false);
+
+      if (!target) {
+        return;
+      }
+
+      intersectionObserver = new IntersectionObserver(
+        ([entry]) => setIsProjectNavVisible(entry.isIntersecting),
+        { threshold: 0.1 }
+      );
+      intersectionObserver.observe(target);
+    };
+
+    observeProjectNav();
+
+    const mutationObserver = new MutationObserver(observeProjectNav);
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      intersectionObserver?.disconnect();
+      mutationObserver.disconnect();
+    };
+  }, []);
 
   return (
     <AnimatePresence>
-      {isScrolled && (
+      {isScrolled && !isProjectNavVisible && (
         <motion.button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           initial={{ opacity: 0, y: 20 }}

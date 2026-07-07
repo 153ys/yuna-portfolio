@@ -155,7 +155,7 @@ export default function ProjectPage() {
       exit={{ opacity: 0, transition: { duration: 0.3, ease: "easeInOut" } }}
     >
       <BackgroundNoise />
-      <main className="relative z-10 max-w-7xl mx-auto px-4 pt-28 pb-20">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 pt-28 md:pb-20 pb-10">
         <motion.div
           className="md:flex md:gap-10"
           initial="hidden"
@@ -192,7 +192,7 @@ export default function ProjectPage() {
               </button>
               {/* Title */}
               <div className="flex flex-col">
-                <h1 className="text-4xl md:text-5xl font-black font-heading leading-tight">
+                <h1 className="text-3xl font-black font-heading leading-tight">
                   {project.title}
                 </h1>
                 {project.time && (
@@ -282,107 +282,110 @@ export default function ProjectPage() {
                         ease: "easeOut",
                       }}
                     >
-                    {info.title && (
-                      <h3 className="text-2xl font-bold inline-block self-start px-2 py-1 border-b-2 border-dotted w-full">
-                        <motion.span
-                          className="inline-block w-5 h-5 mr-2 align-middle"
-                          animate={{ scale: [1, 1.3, 1] }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
+                      {info.title && (
+                        <h3 className="text-2xl font-bold inline-block self-start px-2 py-1 border-b-2 border-dotted w-full">
+                          <motion.span
+                            className="inline-block w-5 h-5 mr-2 align-middle"
+                            animate={{ scale: [1, 1.3, 1] }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          >
+                            <Icon
+                              name="deco_sparkle"
+                              className="w-full h-full"
+                            />
+                          </motion.span>
+                          {info.title}
+                        </h3>
+                      )}
+                      {info.subTitle && (
+                        <div className="relative w-fit">
+                          <h4 className="py-1 relative z-10 text-xl inline-block self-start font-bold">
+                            {info.subTitle}
+                          </h4>
+                          <span className="absolute bottom-2 left-0 h-3 w-full bg-primary/70"></span>
+                        </div>
+                      )}
+                      {info.content && (
+                        <p className="leading-relaxed">
+                          {renderTextWithLineBreaks(info.content)}
+                        </p>
+                      )}
+                      {info.type === "decisionCards" && info.decisionCards && (
+                        <DesignDecisionCards cards={info.decisionCards} />
+                      )}
+                      {info.list?.map((group, gi) => (
+                        <ul
+                          key={gi}
+                          className="list-disc list-inside space-y-1 ml-2"
                         >
-                          <Icon name="deco_sparkle" className="w-full h-full" />
-                        </motion.span>
-                        {info.title}
-                      </h3>
-                    )}
-                    {info.subTitle && (
-                      <div className="relative w-fit">
-                        <h4 className="py-1 relative z-10 text-xl inline-block self-start font-bold">
-                          {info.subTitle}
-                        </h4>
-                        <span className="absolute bottom-2 left-0 h-3 w-full bg-primary/70"></span>
-                      </div>
-                    )}
-                    {info.content && (
-                      <p className="leading-relaxed">
-                        {renderTextWithLineBreaks(info.content)}
-                      </p>
-                    )}
-                    {info.type === "decisionCards" && info.decisionCards && (
-                      <DesignDecisionCards cards={info.decisionCards} />
-                    )}
-                    {info.list?.map((group, gi) => (
-                      <ul
-                        key={gi}
-                        className="list-disc list-inside space-y-1 ml-2"
-                      >
-                        {group.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
-                    ))}
-                    {info.tech && (
-                      <div className="pt-4 flex flex-wrap gap-2 mb-4">
-                        {info.tech.map((t) => (
-                          <span
-                            key={t}
-                            className="hover:-translate-y-1 duration-200 hover:bg-primary/50 delay-100 text-sm font-mono font-bold border-2 px-2 py-1 rounded-lg bg-white"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    {(hasVideos || hasImages) && (
-                      <div
-                        className={
-                          hasVideos && hasImages
-                            ? "mt-2 mx-4 grid gap-4 rounded-xl lg:grid-cols-[1fr_2fr] lg:items-start"
-                            : "mt-2 mx-4 rounded-xl flex flex-col gap-4"
-                        }
-                      >
-                        {hasVideos && (
-                          <div
-                            className={
-                              hasVideos && hasImages
-                                ? "flex w-1/2 mx-auto flex-col gap-4 lg:w-full"
-                                : "flex w-1/2 flex-col gap-4"
-                            }
-                          >
-                            {videos.map((video, i) => (
-                              <ProjectVideoBlock
-                                key={i}
-                                video={video.video}
-                                description={video.description}
-                                poster={video.poster}
-                              />
-                            ))}
-                          </div>
-                        )}
-                        {hasImages && (
-                          <div className="flex flex-col gap-4">
-                            {images.map((img, i) => {
-                            const imageAlt =
-                              img.description ??
-                              `${info.title ?? "project image"}-${i}`;
+                          {group.map((item, i) => (
+                            <li key={i}>{item}</li>
+                          ))}
+                        </ul>
+                      ))}
+                      {info.tech && (
+                        <div className="pt-4 flex flex-wrap gap-2 mb-4">
+                          {info.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="hover:-translate-y-1 duration-200 hover:bg-primary/50 delay-100 text-sm font-mono font-bold border-2 px-2 py-1 rounded-lg bg-white"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      {(hasVideos || hasImages) && (
+                        <div
+                          className={
+                            hasVideos && hasImages
+                              ? "mt-2 mx-4 grid gap-4 rounded-xl lg:grid-cols-[1fr_2fr] lg:items-start"
+                              : "mt-2 mx-4 rounded-xl flex flex-col gap-4"
+                          }
+                        >
+                          {hasVideos && (
+                            <div
+                              className={
+                                hasVideos && hasImages
+                                  ? "flex w-1/2 mx-auto flex-col gap-4 lg:w-full"
+                                  : "flex w-1/2 flex-col gap-4"
+                              }
+                            >
+                              {videos.map((video, i) => (
+                                <ProjectVideoBlock
+                                  key={i}
+                                  video={video.video}
+                                  description={video.description}
+                                  poster={video.poster}
+                                />
+                              ))}
+                            </div>
+                          )}
+                          {hasImages && (
+                            <div className="flex flex-col gap-4">
+                              {images.map((img, i) => {
+                                const imageAlt =
+                                  img.description ??
+                                  `${info.title ?? "project image"}-${i}`;
 
-                            return (
-                              <ProjectImageBlock
-                                key={i}
-                                image={img.image}
-                                alt={imageAlt}
-                                description={img.description}
-                                onPreview={setPreviewImage}
-                              />
-                            );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    )}
+                                return (
+                                  <ProjectImageBlock
+                                    key={i}
+                                    image={img.image}
+                                    alt={imageAlt}
+                                    description={img.description}
+                                    onPreview={setPreviewImage}
+                                  />
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </motion.div>
                   );
                 })}
@@ -392,7 +395,7 @@ export default function ProjectPage() {
         </motion.div>
       </main>
       {/* 專案列表導覽 */}
-      <div className="px-5 border-t-3 border-black ">
+      <div data-hide-top className="px-5 border-t-3 border-black ">
         {/* 上一個專案 */}
         <div className="max-w-7xl mx-auto grid grid-cols-2">
           {prevProject ? (
@@ -404,7 +407,7 @@ export default function ProjectPage() {
                 icon={faArrowLeft}
                 className="text-2xl group-hover:-translate-x-1 transition-transform duration-200"
               />
-              <div className="hidden md:flex flex-col gap-1 font-black font-heading text-xl md:text-2xl leading-tight">
+              <div className="md:flex flex-col gap-1 font-black font-heading text-xl md:text-2xl leading-tight">
                 <p className="text-sm text-gray-500 flex items-center gap-1">
                   上一個專案
                 </p>
@@ -419,17 +422,15 @@ export default function ProjectPage() {
           {nextProject ? (
             <button
               onClick={() => navigate(`/projects/${nextProject.id}`)}
-              className="w-fit ml-auto group flex flex-row items-center gap-4 py-6 text-right transition-colors duration-400 px-4"
+              className="w-fit ml-auto flex flex-row items-center gap-4 md:py-6 py-4 text-start transition-colors duration-400 px-4"
             >
-              <div className="hidden md:flex flex-col gap-1 items-end font-black font-heading text-xl md:text-2xl leading-tight">
-                <p className="text-sm text-gray-500 flex items-center gap-1">
-                  下一個專案
-                </p>
+              <div className="md:flex flex-col gap-1 items-end font-black font-heading text-lg md:text-2xl leading-tight">
+                <p className="text-sm text-gray-500 flex gap-1">下一個專案</p>
                 <p>{nextProject.title}</p>
               </div>
               <FontAwesomeIcon
                 icon={faArrowRight}
-                className="text-2xl group-hover:text-gray-700 group-hover:translate-x-1 transition-transform duration-200"
+                className="md:flex hidden text-xl"
               />
             </button>
           ) : (
