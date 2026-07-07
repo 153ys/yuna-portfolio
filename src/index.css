@@ -57,12 +57,10 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    overscroll-behavior-y: none;
   }
 
   body {
     @apply bg-bg-base text-black font-sans antialiased overflow-x-hidden;
-    overscroll-behavior-y: none;
     min-height: 100vh;
   }
   /* 隱藏預設游標 */

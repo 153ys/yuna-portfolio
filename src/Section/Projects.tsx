@@ -142,7 +142,7 @@ export default function Projects() {
                           variant="dark"
                           onClick={() => navigate(projectPath)}
                         >
-                          Read More{" "}
+                          看更多{" "}
                           <FontAwesomeIcon
                             icon={faArrowRight}
                             className="w-5 h-5"

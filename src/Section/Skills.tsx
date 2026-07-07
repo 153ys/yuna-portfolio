@@ -318,7 +318,7 @@ export default function Skills() {
                     key={modalKey}
                     variants={activePaperVariants}
                     exit={{ opacity: 0, y: -50 }}
-                    className="fixed inset-x-4 md:-top-16 top-[10%] bottom-[10%] z-51 md:relative md:inset-auto md:z-20 md:h-fit h-[75vh] md:flex-1 bg-white border-2 border-black rounded-xl shadow-brutal p-6 sm:p-6 flex flex-col md:ml-8 overflow-hidden"
+                    className="fixed inset-x-4 md:-top-16 top-[5%] bottom-[5%] z-51 md:relative md:inset-auto md:z-20 md:h-fit h-[70vh] md:flex-1 bg-white border-2 border-black rounded-xl shadow-brutal p-6 sm:p-6 flex flex-col md:ml-8 overflow-hidden"
                   >
                     {/* 右上角關閉按鈕 */}
                     <button

@@ -63,11 +63,7 @@ const HeroActionButton = ({
         {label}
       </Button>
     ) : (
-      <Button
-        variant={variant}
-        className="w-full sm:w-auto"
-        onClick={onClick}
-      >
+      <Button variant={variant} className="w-full sm:w-auto" onClick={onClick}>
         {label}
         {icon}
       </Button>
@@ -77,10 +73,10 @@ const HeroActionButton = ({
 
 export const Hero = () => {
   return (
-    <section className="min-h-[85vh] sm:pt-32 pt-40 pb-20 px-6 flex flex-col justify-center items-center max-w-7xl mx-auto">
-      <div className="relative items-center w-full max-w-fit">
+    <section className="min-h-[85svh] mt-10 sm:pt-32 pt-40 pb-20 px-6 flex flex-col justify-center items-center max-w-7xl mx-auto">
+      <div className="relative w-full max-w-3xl">
         <motion.div
-          className="-z-4 absolute -bottom-10 -left-6 md:-left-30 w-12 md:w-20"
+          className="-z-4 absolute -bottom-10 -left-6 md:left-0 w-12 md:w-20"
           animate={{ y: [0, 5, 0], rotate: [0, -10, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -98,9 +94,9 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center justify-center gap-6"
+          className="flex flex-col items-center justify-center gap-7 text-center"
         >
-          <h1 className="relative text-5xl sm:text-6xl md:text-7xl font-black font-heading leading-[1.1] tracking-tight">
+          <h1 className="relative max-w-4xl text-5xl sm:text-6xl md:text-7xl font-black font-heading leading-[1.08] tracking-tight ">
             <motion.div
               className="absolute w-8 top-4 -left-10 md:-left-14"
               animate={{ scale: [1, 1.2, 1] }}
@@ -145,17 +141,16 @@ export const Hero = () => {
               <div className="absolute border-2 bg-bg-base w-3 h-3 -bottom-2 -right-2"></div>
               <span className="transition-colors duration-100">Yuna</span>
             </motion.button>
-            <br />
           </h1>
 
-          <p className="text-xl md:text-2xl text-center font-medium text-gray-800 max-w-lg leading-relaxed mix-blend-multiply">
+          <p className="max-w-3xl text-xl sm:text-xl md:text-2xl text-center font-medium text-gray-800 leading-relaxed">
             從視覺設計轉向 UI/UX，結合前端技術
-            <span className="block">
+            <span className="block sm:inline">
               打造兼具美感、體驗與可實作的數位產品
             </span>
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-4 max-w-[70vw] w-full text-center sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-4 mt-3 w-60 max-w-md sm:w-auto sm:max-w-none text-center">
             {heroActions.map((action) => (
               <HeroActionButton key={action.label} {...action} />
             ))}
