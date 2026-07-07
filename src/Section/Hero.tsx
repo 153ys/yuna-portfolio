@@ -50,7 +50,7 @@ export const Hero = () => {
               }}
               className="absolute -top-12 shadow-brutal-sm sm:-left-20 -left-8 inline-block bg-primary border-brutal px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider transform -rotate-5"
             >
-              UI/UX & Frontend
+              UI/UX Designer
             </motion.div>
             Hi, I'm{" "}
             <motion.button
@@ -79,8 +79,9 @@ export const Hero = () => {
             <br />
           </h1>
 
-          <p className="text-xl md:text-2xl font-medium text-gray-800 max-w-lg leading-relaxed mix-blend-multiply">
-            從設計出發，打造兼具體驗與效能的前端產品
+          <p className="text-xl md:text-2xl text-center font-medium text-gray-800 max-w-lg leading-relaxed mix-blend-multiply">
+            從視覺設計轉向 UI/UX，結合前端技術
+            <p>打造兼具美感、體驗與可實作的數位產品</p>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-4 max-w-[70vw] w-full text-center sm:w-auto">
@@ -96,6 +97,16 @@ export const Hero = () => {
                 <FontAwesomeIcon icon={faArrowDown} className="w-5 h-5" />
               </Button>
             </Tooltip>
+            <Tooltip info="我的視覺設計作品">
+              <Button
+                variant="secondary"
+                className="w-full sm:w-auto"
+                href="https://yunakao.myportfolio.com/"
+                target="_blank"
+              >
+                視覺設計
+              </Button>
+            </Tooltip>
             <Tooltip info="前往 GitHub 查看原始碼">
               <Button
                 variant="secondary"
@@ -107,7 +118,7 @@ export const Hero = () => {
                 GitHub
               </Button>
             </Tooltip>
-            <Tooltip info="我的技術文章">
+            {/* <Tooltip info="我的技術文章">
               <Button
                 variant="secondary"
                 className="w-full sm:w-auto"
@@ -116,17 +127,7 @@ export const Hero = () => {
               >
                 Medium
               </Button>
-            </Tooltip>
-            <Tooltip info="我過去的設計作品">
-              <Button
-                variant="secondary"
-                className="w-full sm:w-auto"
-                href="https://yunakao.myportfolio.com/"
-                target="_blank"
-              >
-                平面設計
-              </Button>
-            </Tooltip>
+            </Tooltip> */}
           </div>
         </motion.div>
       </div>
